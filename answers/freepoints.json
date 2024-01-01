@@ -1,0 +1,33 @@
+[
+  {
+    "correct": true,
+    "points": 2,
+    "pairs": [
+      {
+        "patterns": ["Fuck off"],
+        "response": "Nice! You are very good at reading!! I'm so proud of you!!!"
+      },
+      {
+        "patterns": ["Ok nerd"],
+        "response": "Wow!! You are so good at following directions!! You are such a smart person!! Very good job!!!!"
+      }
+    ]
+  },
+  {
+    "correct": false,
+    "pairs": [
+      {
+        "patterns": ["fuckoff"],
+        "response": "No, listen, you have to add a space in between the \"fuck\" and the \"off\". This isn't hard, ok? Just type \"fuck\" on your keyboard, and then hit the spacebar. The spacebar is usually a very large rectangle at the bottom of your keyboard. Just press that, and type \"off\". Next, you are going to hit the 'enter' key (also commonly reffered to as the 'return' key) on your keyboard.<br>You could also type \"fliepfloep\" as the answer, if this is too hard for you."
+      },
+      {
+        "patterns": ["no", "wont", "won't", "never", "dont", "don't", "not", "cant", "can't"],
+        "response": "No???? Don't you want the free points?? Ok sure, if you don't want to type \"fuck off\", you can type \"ok nerd\" instead."
+      },
+      {
+        "patterns": ["fliepfloep"],
+        "response": "I lied! You're going to need to press the space bar anyway! Though, if you really don't want to type \"fuck off\" then \"ok nerd\" will also do just fine :)"
+      }
+    ]
+  }
+]

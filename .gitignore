@@ -1,0 +1,7 @@
+# Don't ask
+*star.svg
+*starg.svg
+
+# Fuck off you ain't getting the answers from here hehehe :)
+answers/*.json
+!answers/freepoints.json
