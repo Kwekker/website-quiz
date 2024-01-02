@@ -6,22 +6,37 @@
   },
   {
     "id": "minecraft",
-    "html": "Who has \"minecraft\" in their name?",
+    "html": "Who has 'minecraft' in their name?",
     "points": [5,3]
   },
   {
     "id": "freepoints",
-    "html": "This question is free! It gives you <b>free points</b>!!! The answer to the question is \"fuck off\". Literally just type that and you're golden!!!. Don't you dare forget to type a space in between these two words!! If you do there will be consequences!!!",
+    "html": "This question is free! It gives you <b>free points</b>!!! The answer to the question is 'fuck off'. Literally just type that and you're golden!!!. Don't you dare forget to type a space in between these two words!! If you do there will be consequences!!!",
     "points": [2]
   },
   {
     "id": "squares",
-    "html": "<p>Have some colors:</p><img src=\"img/squares.svg\" style=\"height:50px;\"\">",
+    "html": "<p>Have some colors:</p><img src='img/squares.svg' style='height:50px;'>",
     "points": [5]
   },
   {
     "id": "taylor",
     "html": "Give me all of Taylor's (official) names/aliases. As separate answers.",
     "points": [1,2,2]
+  },
+  {
+    "id": "symbol1",
+    "html": "<img src='img/symbol1.svg'>",
+    "points": [5]
+  },
+  {
+    "id": "symbol2",
+    "html": "<img src='img/symbol2.svg'>",
+    "points": [5]
+  },
+  {
+    "id": "symbol3",
+    "html": "<img src='img/symbol3.svg'>",
+    "points": [5]
   }
 ]
