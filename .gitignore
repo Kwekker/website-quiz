@@ -7,3 +7,8 @@ answers/*.json
 
 # Include an example because I'm nice.
 !answers/freepoints.json
+
+
+# Don't include user data because it's not important.
+# The files are added automatically and really shouldn't need to be changed by hand.
+people/*.csv
