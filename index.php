@@ -55,7 +55,7 @@
         <li>Answers are case-insensitive.</li>
         <br><li>Most of the time the program only checks if your answer <i>includes</i> the correct answer. If the answer to a question is "blue" and you answer with "it's blue", it'll get accepted.</li>
         <br><li>Every correct answer gives you an amount of points. The amount of points is based on how cool I think it is that you can answer that specific question with that specific answer.</li>
-        <br><li>Some questions have multiple correct answers. For example, the answer to "What color is the sky?" could be both "blue" and "black", because it's not always day time. Sometimes these answers even give you an amount of points individually.</li>
+        <br><li>Some questions have multiple correct answers. For example, the answer to "What is 1+1?" could be both "2" and "two".</li>
       </ul>
       
       

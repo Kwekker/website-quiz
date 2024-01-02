@@ -8,8 +8,12 @@ error_reporting(E_ALL);
 
 include "players.php";
 
+// Handle name already set.
+if(isset($_COOKIE["name"])) {
+    $name = strtolower($_COOKIE["name"]);
+}
 // Handle entered name.
-if(isset($_POST["name"])) {
+else if(isset($_POST["name"])) {
     $name = strtolower($_POST["name"]);
     if(!ctype_alnum($name)) {
         echo "<div>Please only use letters or numbers in your name thanks.</div>";
@@ -29,11 +33,10 @@ if(isset($_POST["name"])) {
     setcookie("name", $name);
 }
 // Ask for a name.
-else if(!isset($_COOKIE["name"])) {
+else {
     printNameRequest();
     die;
 }
-else $name = strtolower($_COOKIE["name"]);
 
 // Get user info.
 $player = getPlayerData($name);
@@ -44,6 +47,9 @@ if(isset($_POST["question"]) && isset($_POST["answer"])) {
 }
 
 fclose($player->file);
+
+// Make sure the player's rank has been set.
+checkLeaderboard($player);
 
 // Generate user info thingy.
 echo "<div>";
@@ -118,6 +124,7 @@ function checkAnswer($player, $questionId, $userAnswer) {
                 // Check answer.
                 if(stristr($userAnswer, $pattern)) {
                     $ret = "";
+
                     // Check if it's correct or already answered.
                     if(
                         $answer->correct == true 

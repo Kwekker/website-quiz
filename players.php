@@ -1,5 +1,6 @@
 <?php
 
+
 function getPlayerData($name) {
     $newPlayer = !file_exists("people/$name.csv");
     $file = fopen("people/$name.csv", "a+");
@@ -50,8 +51,9 @@ function addAnswerToPlayer($player, $questionId, $answerIndex, $points) {
     // Check if answer has been answered before.
     if(isset($player->answers[$questionId])) {
         if(in_array($answerIndex, $player->answers[$questionId]))
-        return true;
-    else array_push($player->answers[$questionId], $answerIndex);
+            return true;
+        else 
+            array_push($player->answers[$questionId], $answerIndex);
     }
     else $player->answers[$questionId] = [$answerIndex];
 
@@ -92,13 +94,6 @@ function updateLeaderboardPosition($player) {
         array_splice($leaderboard, $newIndex + 1, 0, [(object)['name' => $player->name, 'points' => $player->points]]);
     }
 
-    echo "<pre>";
-    var_dump($leaderboard);
-    echo "\nthing:\n";
-    echo "$oldIndex and $newIndex";
-    echo "</pre>";
-
-
     // Find this player's rank.
     while($newIndex >= 0 && $leaderboard[$newIndex]->points == $player->points) $newIndex--;
     $player->rank = $newIndex + 2;
@@ -108,6 +103,7 @@ function updateLeaderboardPosition($player) {
     fwrite($file, json_encode($leaderboard));
     ftruncate($file, ftell($file));
     fclose($file);
+
 }
 
 function getLeaderboardPosition($name) {
@@ -123,7 +119,7 @@ function getLeaderboardPosition($name) {
     // Find the leaderboard position, taking equal places into account.
     // Points   8 8 6 5 3 2 2 2 1
     // Position 1 1 3 4 5 6 6 6 9
-    $currentPos = 1;
+    $currentPos = -2;
     $prevPoints = -1;
     foreach($leaderboard as $i => $line) {
         if($line->points != $prevPoints) $currentPos = $i + 1;
@@ -158,6 +154,12 @@ function addNewLeaderboardName($name) {
     fclose($file);
 
     return $rank + 1;
+}
+
+function checkLeaderboard($player) {
+    if($player->rank == -1) {
+        $player->rank = getLeaderboardPosition($player->name);
+    }
 }
 
 
