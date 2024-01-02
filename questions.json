@@ -1,7 +1,7 @@
 [
   {
     "id": "brain",
-    "html": "\"My brain is just too large\"",
+    "html": "<q>My brain is just too large</q>",
     "points": [5]
   },
   {
@@ -13,5 +13,15 @@
     "id": "freepoints",
     "html": "This question is free! It gives you <b>free points</b>!!! The answer to the question is \"fuck off\". Literally just type that and you're golden!!!. Don't you dare forget to type a space in between these two words!! If you do there will be consequences!!!",
     "points": [2]
+  },
+  {
+    "id": "squares",
+    "html": "<p>Have some colors:</p><img src=\"img/squares.svg\" style=\"height:50px;\"\">",
+    "points": [5]
+  },
+  {
+    "id": "taylor",
+    "html": "Give me all of Taylor's (official) names/aliases. As separate answers.",
+    "points": [1,2,2]
   }
 ]
