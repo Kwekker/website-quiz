@@ -38,6 +38,12 @@
 #questions q {
     font-style: italic;
     font-size: large;
+    color: #222;
+}
+
+.answered {
+    text-decoration: line-through;
+    font-style: italic;
     color: #444;
 }
 
