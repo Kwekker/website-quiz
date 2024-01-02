@@ -4,4 +4,6 @@
 
 # Fuck off you ain't getting the answers from here hehehe :)
 answers/*.json
+
+# Include an example because I'm nice.
 !answers/freepoints.json

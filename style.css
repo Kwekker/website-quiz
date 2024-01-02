@@ -10,6 +10,7 @@
     margin-right: auto;
     background-color: var(--brighterBlue);
     padding: 20px 30px;
+    padding-right: 10px;
     border: black solid 3px;
     display: block;
     min-width: 500px;
@@ -24,19 +25,20 @@
 
 .points {
     float: right;
-    text-align: right;
-    margin-left: 30px;
+    /* text-align: right; */
+    margin-left: 50px;
 }
 
 .points b {
-    margin-right: 20px;
+    position: relative;
+    right: 30px;
 }
 
 /* Quotes */
-#questions i {
+#questions q {
     font-style: italic;
     font-size: large;
-    color: dimgray;
+    color: #444;
 }
 
 #questions > div > div {
