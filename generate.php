@@ -1,5 +1,7 @@
 <?php
 
+// TODO: Support for malicious shit like having an invalid name as a cookie.
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -8,20 +10,30 @@ include "players.php";
 
 // Handle entered name.
 if(isset($_POST["name"])) {
-    if(!ctype_alnum($_POST["name"])) {
+    $name = strtolower($_POST["name"]);
+    if(!ctype_alnum($name)) {
         echo "<div>Please only use letters or numbers in your name thanks.</div>";
         printNameRequest();
         die;
     }
-    setcookie("name", $_POST["name"]);
-    $name = $_POST["name"];
+    if(file_exists("people/$name.csv") && !isset($_POST["thatsme"])) {
+        echo "<div>That name was already taken. If that wasn't you, please use a different name.<br><form method='POST'>";
+        echo "<input type='hidden' name='thatsme' value='true'>";
+        echo "<input type='hidden' name='name' value='$name'>";
+        echo "<input type='submit' value='Yeah, that was me.'>";
+        echo "</form></div>";
+        printNameRequest();
+        die;
+    }
+
+    setcookie("name", $name);
 }
 // Ask for a name.
 else if(!isset($_COOKIE["name"])) {
     printNameRequest();
     die;
 }
-else $name = $_COOKIE["name"];
+else $name = strtolower($_COOKIE["name"]);
 
 // Get user info.
 $player = getPlayerData($name);
@@ -31,15 +43,15 @@ if(isset($_POST["question"]) && isset($_POST["answer"])) {
     $checkedAnswer = checkAnswer($player, $_POST["question"], $_POST["answer"]);
 }
 
+fclose($player->file);
+
 // Generate user info thingy.
 echo "<div>";
-echo "Hello <b>$name</b>.<br>You currently have <b>$player->points</b> points, from <b>$player->answerCount</b> correct answers.";
+echo "Hello <b>$name</b>.<br>You currently have <b>$player->points</b> points, from <b>$player->answerCount</b> correct answers. This puts you in position <b>$player->rank</b> on the leaderboard.";
 echo "</div><br><br>";
 
 // Parse question file.
-$qFile = fopen("questions.json", "r");
-$questions = json_decode(fread($qFile, 5000));
-fclose($qFile);
+$questions = json_decode(file_get_contents("questions.json"));
 
 // Generate questions.
 foreach($questions as $q) {
@@ -58,7 +70,6 @@ foreach($questions as $q) {
     echo "</form></div>";
 }
 
-fclose($player->file);
 
 function generateAnswers($player, $question) {
     // Count the amount of point values the question has in questions.json.
@@ -128,7 +139,8 @@ function checkAnswer($player, $questionId, $userAnswer) {
 function printNameRequest() {
     echo "<div><form method='post'>";
     echo "<label for='name'>Please provide a name :)</label><br>";
-    echo "<input type='text' name='name' id='name'>";
+    echo "<input type='text' name='name' id='name'><br>";
+    echo "<input type='submit'>";
     echo "</form></div>";
 }
 

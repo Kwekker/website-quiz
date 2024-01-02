@@ -1,6 +1,7 @@
 <?php
 
 function getPlayerData($name) {
+    $newPlayer = !file_exists("people/$name.csv");
     $file = fopen("people/$name.csv", "a+");
 
     // CSV Line:
@@ -28,7 +29,20 @@ function getPlayerData($name) {
         $line = fgetcsv($file);
     }
 
-    return (object) array('file' => $file, 'answerCount' => $answerCount, 'answers' => $answers, 'points' => $points);
+    // Only check the leaderboard position if the user is not answering a question.
+    // If they are it will be set in the answer checking function.
+    $rank = -1;
+    if(!isset($_POST["question"]) && $newPlayer == false) $rank = getLeaderboardPosition($name);
+    else if($newPlayer == true) $rank = addNewLeaderboardName($name);
+
+    return (object) array(
+        'name' => $name,
+        'file' => $file, 
+        'answerCount' => $answerCount, 
+        'answers' => $answers, 
+        'points' => $points, 
+        'rank' => $rank
+    );
 }
 
 function addAnswerToPlayer($player, $questionId, $answerIndex, $points) {
@@ -48,7 +62,103 @@ function addAnswerToPlayer($player, $questionId, $answerIndex, $points) {
     $player->points += $points;
     $player->answerCount++;
 
+    updateLeaderboardPosition($player);
+
     return false;
 }
+
+function updateLeaderboardPosition($player) {
+    // Get current leaderboard
+    $file = fopen("leaderboard.json", "c+");
+    if(flock($file, LOCK_EX) == false) {
+        fclose($file);
+        return false;
+    }
+    $leaderboard = json_decode(fread($file, 10000));
+    $leaderboardLength = count($leaderboard);
+
+    // Find old index.
+    $oldIndex = 0;
+    while($oldIndex < $leaderboardLength && $leaderboard[$oldIndex]->name != $player->name) $oldIndex++;
+    if($oldIndex == $leaderboardLength) return false;
+
+    // Find new index.
+    $newIndex = $oldIndex;
+    while($newIndex >= 0 && $leaderboard[$newIndex]->points < $player->points) $newIndex--;
+
+    // Move this player up if they just gained more points than the people above them.
+    if($oldIndex != $newIndex) {
+        array_splice($leaderboard, $oldIndex, 1);
+        array_splice($leaderboard, $newIndex + 1, 0, [(object)['name' => $player->name, 'points' => $player->points]]);
+    }
+
+    echo "<pre>";
+    var_dump($leaderboard);
+    echo "\nthing:\n";
+    echo "$oldIndex and $newIndex";
+    echo "</pre>";
+
+
+    // Find this player's rank.
+    while($newIndex >= 0 && $leaderboard[$newIndex]->points == $player->points) $newIndex--;
+    $player->rank = $newIndex + 2;
+    
+    // Write the new array into the file.
+    fseek($file, 0);
+    fwrite($file, json_encode($leaderboard));
+    ftruncate($file, ftell($file));
+    fclose($file);
+}
+
+function getLeaderboardPosition($name) {
+    // Get, lock and read the file.
+    $file = fopen("leaderboard.json", "r");
+    if(flock($file, LOCK_SH) == false) {
+        fclose($file);
+        return false;
+    }
+    $leaderboard = json_decode(fread($file, 10000));
+    fclose($file);
+
+    // Find the leaderboard position, taking equal places into account.
+    // Points   8 8 6 5 3 2 2 2 1
+    // Position 1 1 3 4 5 6 6 6 9
+    $currentPos = 1;
+    $prevPoints = -1;
+    foreach($leaderboard as $i => $line) {
+        if($line->points != $prevPoints) $currentPos = $i + 1;
+        if($line->name == $name) break;
+        $prevPoints = $line->points;
+    }
+
+    return $currentPos;
+}
+
+function addNewLeaderboardName($name) {
+    // Get and lock the file.
+    $file = fopen("leaderboard.json", "r+");
+    if(flock($file, LOCK_EX) == false) {
+        fclose($file);
+        return false;
+    }
+    $leaderboard = json_decode(fread($file, 10000));
+
+    // Add the new player to the list.
+    array_push($leaderboard, (object)['name' => $name, 'points' => 0]);
+
+    // Get the last rank.
+    $rank = count($leaderboard);
+    // This doesn't work if nobody has points, but I don't care.
+    while($leaderboard[$rank - 1]->points == 0) $rank--;
+
+    // Write the new array into the file.
+    fseek($file, 0);
+    fwrite($file, json_encode($leaderboard));
+    ftruncate($file, ftell($file));
+    fclose($file);
+
+    return $rank + 1;
+}
+
 
 ?>
