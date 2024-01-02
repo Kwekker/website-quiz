@@ -41,6 +41,10 @@
     color: #222;
 }
 
+#questions img {
+    height: 200px;
+}
+
 .answered {
     text-decoration: line-through;
     font-style: italic;
@@ -53,8 +57,4 @@
 
 #questions > div > form > input[type=text] {
     margin-left: 10px;
-}
-
-#questions img {
-    height: 12px;
 }

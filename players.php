@@ -51,5 +51,4 @@ function addAnswerToPlayer($player, $questionId, $answerIndex, $points) {
     return false;
 }
 
-
 ?>

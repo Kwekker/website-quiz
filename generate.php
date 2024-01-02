@@ -25,9 +25,6 @@ else $name = $_COOKIE["name"];
 
 // Get user info.
 $player = getPlayerData($name);
-echo "<pre>";
-var_dump($player);
-echo "</pre>";
 
 // Check provided answer. This has to happen here to update the user info.
 if(isset($_POST["question"]) && isset($_POST["answer"])) {
