@@ -61,7 +61,10 @@ $questions = json_decode(file_get_contents("questions.json"));
 
 // Generate questions.
 foreach($questions as $q) {
-    echo "<div id='$q->id'>";
+    echo "<div id='$q->id'";
+    if(isset($player->answers[$q->id]) && count($player->answers[$q->id]) == count($q->points))
+        echo " class='completed'";
+    echo ">";
     generateAnswers($player, $q);
     echo "<div>$q->html</div>";
     echo "<form method='post' action='#$q->id'>";

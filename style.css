@@ -4,6 +4,11 @@
   -webkit-box-sizing: border-box;
 }
 
+#questions > .completed {
+    background-color: rgb(232, 251, 255);
+    border: 1.5px dashed;
+}
+
 #questions > div {
     margin-top: 25px;
     margin-left: auto;

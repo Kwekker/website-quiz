@@ -12,3 +12,4 @@ answers/*.json
 # Don't include user data because it's not important.
 # The files are added automatically and really shouldn't need to be changed by hand.
 people/*.csv
+leaderboard.json
