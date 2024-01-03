@@ -13,3 +13,4 @@ answers/*.json
 # The files are added automatically and really shouldn't need to be changed by hand.
 people/*.csv
 leaderboard.json
+allAnswers.log

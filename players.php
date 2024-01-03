@@ -64,6 +64,9 @@ function addAnswerToPlayer($player, $questionId, $answerIndex, $points) {
     $player->points += $points;
     $player->answerCount++;
 
+    // Log answer.
+    file_put_contents("allAnswers.log", date("d M y H:i:s") . ",answer,$player->name,$questionId,$answerIndex\n", FILE_APPEND | LOCK_EX);
+
     updateLeaderboardPosition($player);
 
     return false;
