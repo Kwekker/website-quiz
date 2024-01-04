@@ -17,7 +17,7 @@
   {
     "id": "squares",
     "html": "<p>Have some colors:</p><img src='img/squares.svg' style='height:50px;'>",
-    "points": [5]
+    "points": [7]
   },
   {
     "id": "taylor",
@@ -38,5 +38,15 @@
     "id": "symbol3",
     "html": "<img src='img/symbol3.svg'>",
     "points": [5]
+  },
+  {
+    "id": "animal",
+    "html": "What is this?<br><img src='/aboutme/cat.jpg'>",
+    "points": [3]
+  },
+  {
+    "id": "GET",
+    "html": "Send a GET request to ./dumbQuestion.php with 'duck' set to 'true' for the answer to this question.",
+    "points": [3]
   }
 ]

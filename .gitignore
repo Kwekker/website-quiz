@@ -14,3 +14,11 @@ answers/*.json
 people/*.csv
 leaderboard.json
 allAnswers.log
+
+# Answer specific php files
+# (don't worry they literally just contain an if/else statement and 2 echo's)
+dumbQuestion.php
+dumbquestion.php
+
+# Error logging file
+err.log

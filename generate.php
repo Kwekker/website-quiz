@@ -1,5 +1,6 @@
 <?php
 
+// ini_set('error_log', "err.log");
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -124,8 +125,10 @@ function checkAnswer($player, $questionId, $userAnswer) {
     $answers = json_decode(fread($ansFile, 2000));
     fclose($ansFile);
 
-    // Prepare for nested bullshit
-    foreach($answers as $answerIndex=>$answer) {
+    $correctAnswerIndex = 0;
+    // Prepare for nested bullshit.
+    // Check every pattern starting from the top to the bottom of the file.
+    foreach($answers as $answer) {
         foreach($answer->pairs as $pair) {
             foreach($pair->patterns as $pattern) {
                 // Check answer.
@@ -135,7 +138,7 @@ function checkAnswer($player, $questionId, $userAnswer) {
                     // Check if it's correct or already answered.
                     if(
                         $answer->correct == true 
-                        && addAnswerToPlayer($player, $questionId, $answerIndex, $answer->points)
+                        && addAnswerToPlayer($player, $questionId, $correctAnswerIndex, $answer->points)
                     ) $ret .= "(<i>You already answered this question with this answer.</i>)<br><br>";
                         
                     // If it matches and it's a correct answer, store it.
@@ -145,6 +148,7 @@ function checkAnswer($player, $questionId, $userAnswer) {
                 }
             }
         }
+        if($answer->correct) $correctAnswerIndex++;
     }
 
     return "Nope :)";
