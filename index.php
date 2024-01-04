@@ -31,12 +31,13 @@
     <?php 
       ob_start();
       include "generate.php";
-      echo "fuck you hehe";
+      generateQuestions();
       $questionHTML = ob_get_contents();
       ob_end_clean();
 
-      $pos2 = $leaderboard[0]->points == $leaderboard[1]->points ? 1 : 2;
-      $pos3 = $leaderboard[1]->points == $leaderboard[2]->points ? $pos2 : 3;
+      if($leaderboard != false && count($leaderboard) >= 3):
+        $pos2 = $leaderboard[0]->points == $leaderboard[1]->points ? 1 : 2;
+        $pos3 = $leaderboard[1]->points == $leaderboard[2]->points ? $pos2 : 3;
     ?>
     <div class="leaderboard">
         <h3>Leaderboard</h3>
@@ -54,6 +55,7 @@
         </div>
     </div>
     <br>
+    <?php endif; ?>
     
   </article>
 

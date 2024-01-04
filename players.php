@@ -1,6 +1,6 @@
 <?php
 
-$leaderboard = 3;
+$leaderboard = false;
 
 function getPlayerData($name) {
     $newPlayer = !file_exists("people/$name.csv");
@@ -151,8 +151,7 @@ function addNewLeaderboardName($name) {
 
     // Get the last rank.
     $rank = count($leaderboard);
-    // This doesn't work if nobody has points, but I don't care.
-    while($leaderboard[$rank - 1]->points == 0) $rank--;
+    while($rank > 0 && $leaderboard[$rank - 1]->points == 0) $rank--;
 
     // Write the new array into the file.
     fseek($file, 0);
@@ -163,7 +162,20 @@ function addNewLeaderboardName($name) {
     return $rank + 1;
 }
 
-function checkLeaderboard($player) {
+// Check if the leaderboard has been read before.
+function checkLeaderboard($player = NULL) {
+    if($player == NULL) {
+        global $leaderboard;
+        $file = fopen("leaderboard.json", "r");
+        if(flock($file, LOCK_SH) == false) {
+            fclose($file);
+            return false;
+        }
+        global $leaderboard;
+        $leaderboard = json_decode(fread($file, 10000));
+        fclose($file);
+        return;
+    }
     if($player->rank == -1) {
         $player->rank = getLeaderboardPosition($player->name);
     }
