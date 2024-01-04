@@ -23,7 +23,7 @@
 }
 
 .unuglify {
-    width: 1000px;
+    max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -62,4 +62,37 @@
 
 #questions > div > form > input[type=text] {
     margin-left: 10px;
+}
+
+.leaderboard {
+    font-size: 40px;
+    margin-left: auto;
+    text-align: center;
+}
+
+.leaderboard .top {
+    display: inline-block;
+    margin-left: auto;
+    background-color: var(--button);
+    border: 3px black solid;
+    width: 35vw;
+    margin-bottom: 6px;
+}
+
+.leaderboard b:nth-child(1) {
+    float: left;
+    padding: 0 8px;
+}
+
+.leaderboard b:nth-child(2) {
+    float: right;
+    padding: 0 8px;
+    font-weight: normal;
+}
+
+.leaderboard .notop span {
+    width: 35vw;
+    border: 3px black solid;
+    display: inline-block;
+    background-color: var(--lessButton);
 }

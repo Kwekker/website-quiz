@@ -1,12 +1,12 @@
 <?php
 
-// TODO: Support for malicious shit like having an invalid name as a cookie.
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 include "players.php";
+
+// TODO: Support for malicious shit like having an invalid name as a cookie.
 
 // Handle name already set.
 if(isset($_COOKIE["name"])) {

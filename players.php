@@ -1,5 +1,6 @@
 <?php
 
+$leaderboard = 3;
 
 function getPlayerData($name) {
     $newPlayer = !file_exists("people/$name.csv");
@@ -79,6 +80,7 @@ function updateLeaderboardPosition($player) {
         fclose($file);
         return false;
     }
+    global $leaderboard;
     $leaderboard = json_decode(fread($file, 10000));
     $leaderboardLength = count($leaderboard);
 
@@ -116,6 +118,7 @@ function getLeaderboardPosition($name) {
         fclose($file);
         return false;
     }
+    global $leaderboard;
     $leaderboard = json_decode(fread($file, 10000));
     fclose($file);
 
@@ -140,6 +143,7 @@ function addNewLeaderboardName($name) {
         fclose($file);
         return false;
     }
+    global $leaderboard;
     $leaderboard = json_decode(fread($file, 10000));
 
     // Add the new player to the list.
