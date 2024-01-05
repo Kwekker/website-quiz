@@ -79,6 +79,7 @@
       <br>
       A few details about answering:
       <ul>
+        <li>All answers are logged for my personal enjoyment, so don't put your credit card information in them.</li>
         <li>Not every 'question' is actually a question. Some are just quotes or images that reference something. In these cases, just answer with what you think it is referencing.</li>
         <li>You are not going to get every reference here. If you have no idea what the fuck one of these questions means, just go to the next one.</li>
         <li>Answers are case-insensitive.</li>

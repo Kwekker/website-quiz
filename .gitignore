@@ -13,7 +13,7 @@ answers/*.json
 # These files should get added automatically and really shouldn't need to be changed by hand.
 people/*.csv
 leaderboard.json
-allAnswers.log
+allAnswers.csv
 
 # Answer specific php files
 # (don't worry they literally just contain an if/else statement and 2 echo's)

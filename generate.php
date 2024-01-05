@@ -68,11 +68,24 @@ function generateQuestions() {
     // Check provided answer. This has to happen here to update the user info.
     $checkedAnswer = false;
     if(isset($_POST["question"]) && isset($_POST["answer"])) {
-        if(!ctype_alnum($_POST["question"])) {
+        if(!ctype_alnum($_POST["question"]) || strlen($_POST["question"]) > 15) {
             echo "<div>Kindly fuck off :)</div>";
             return;
         }
-        $checkedAnswer = checkAnswer($player, $_POST["question"], $_POST["answer"]);
+        if(strlen($_POST["answer"]) > 200 || strchr($_POST["answer"], '\n')) {
+            $checkedAnswer = "Your answer is either too long or cringe.";
+        }
+        else {
+            
+            [$checkedAnswer,$isCorrect,$answerIndex] = checkAnswer($player, $_POST["question"], $_POST["answer"]);
+            
+            // Log answer.
+            $correctText = $isCorrect ? "CORRECT:$answerIndex" : "WRONG";
+            file_put_contents("allAnswers.csv", 
+                date("d M y H:i:s") . ",$correctText,$player->name," .$_POST["question"]. ",\"" .$_POST["answer"]. "\"\n",
+                FILE_APPEND | LOCK_EX
+            );
+        }
     }
 
     fclose($player->file);
@@ -182,14 +195,14 @@ function checkAnswer($player, $questionId, $userAnswer) {
                     // If it matches and it's a correct answer, store it.
                     $ret .= $pair->response;
                         
-                    return $ret;
+                    return [$ret,$answer->correct,$correctAnswerIndex];
                 }
             }
         }
         if($answer->correct) $correctAnswerIndex++;
     }
 
-    return "Nope :)";
+    return ["Nope :)",false,-1];
 }
 
 function checkName($name) {
