@@ -22,6 +22,10 @@
     max-width: 1000px;
 }
 
+li {
+    margin-bottom: 15px;
+}
+
 .unuglify {
     max-width: 1000px;
     margin-left: auto;
@@ -75,7 +79,7 @@
     margin-left: auto;
     background-color: var(--button);
     border: 3px black solid;
-    width: 35vw;
+    min-width: 35vw;
     margin-bottom: 6px;
 }
 

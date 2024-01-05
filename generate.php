@@ -1,6 +1,6 @@
 <?php
 
-// ini_set('error_log', "err.log");
+ini_set('error_log', "err.log");
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -8,21 +8,40 @@ error_reporting(E_ALL);
 include "players.php";
 
 // TODO: Support for malicious shit like having an invalid name as a cookie.
+// TODO: QUESTION NAMES CAN BE PATHS!!! Make sure to refuse symbols in question names!!!
+// TODO: Same with names in cookies!!!!
 function generateQuestions() {
+
+    if(isset($_POST["reset"]) && $_POST["reset"] == "true") {
+        unset($_COOKIE["name"]);
+        setcookie("name", "", -1);
+    }
     
     // Handle name already set.
     if(isset($_COOKIE["name"])) {
-        $name = strtolower($_COOKIE["name"]);
+        $name = $_COOKIE["name"];
+        if(checkName($name) != false) {
+            echo "<div>Stop manually changing your cookies you nerd.";
+            echo "<form method='post'><input type='hidden' name='reset' value='true'><input type='submit' value='I didn&#39;t???'></form>";
+            echo "</div>";
+            error_log("Weird cookie name [$name]");
+            return;
+        }
     }
     // Handle entered name.
     else if(isset($_POST["name"])) {
         $name = strtolower($_POST["name"]);
-        if(!ctype_alnum($name)) {
-            echo "<div>Please only use letters or numbers in your name thanks.</div>";
+
+        // Check if name is valid.
+        $checkedName = checkName($name);
+        if($checkedName != false) {
+            echo $checkedName;
             printNameRequest();
             checkLeaderboard();
             return;
         }
+
+        // Check if name already exists.
         if(file_exists("people/$name.csv") && !isset($_POST["thatsme"])) {
             echo "<div>That name was already taken. If that wasn't you, please use a different name.<br><form method='POST'>";
             echo "<input type='hidden' name='thatsme' value='true'>";
@@ -47,7 +66,12 @@ function generateQuestions() {
     $player = getPlayerData($name);
 
     // Check provided answer. This has to happen here to update the user info.
+    $checkedAnswer = false;
     if(isset($_POST["question"]) && isset($_POST["answer"])) {
+        if(!ctype_alnum($_POST["question"])) {
+            echo "<div>Kindly fuck off :)</div>";
+            return;
+        }
         $checkedAnswer = checkAnswer($player, $_POST["question"], $_POST["answer"]);
     }
 
@@ -65,24 +89,38 @@ function generateQuestions() {
     $questions = json_decode(file_get_contents("questions.json"));
 
     // Generate questions.
-    foreach($questions as $q) {
-        echo "<div id='$q->id'";
-        if(isset($player->answers[$q->id]) && count($player->answers[$q->id]) == count($q->points))
-            echo " class='completed'";
-        echo ">";
-        generateAnswers($player, $q);
-        echo "<div>$q->html</div>";
-        echo "<form method='post' action='#$q->id'>";
-        echo "<label for='$q->id-answer'>Answer: </label>";
-        echo "<input type='text' name='answer' id='$q->id-answer'>";
-        echo "<input type='hidden' name='question' value='$q->id'>";
-        echo "<br><input type='submit'>";
-        if(isset($checkedAnswer) && $_POST["question"] == $q->id) {
-            echo "<br><br><b>You answered:</b> " . $_POST["answer"] . "<br>";
-            echo "<br>$checkedAnswer";
-        }
-        echo "</form></div>";
+    foreach($questions as $question) {
+        generateQuestion($question, $player, $checkedAnswer);
     }
+}
+
+function generateQuestion($q, $player, $checkedAnswer = false) {
+    echo "<div id='$q->id'";
+
+    // Add 'completed' class if the user has answered all answers of this question.
+    if(isset($player->answers[$q->id]) && count($player->answers[$q->id]) == count($q->points))
+        echo " class='completed'";
+    echo ">";
+
+    // Print answers and points on the right side.
+    generateAnswers($player, $q);
+
+    // Print question html.
+    echo "<div>$q->html</div>";
+
+    // Print the answer form with a hidden input that provides the question id.
+    echo "<form method='post' action='#$q->id'>";
+    echo "<label for='$q->id-answer'>Answer: </label>";
+    echo "<input type='text' name='answer' id='$q->id-answer'>";
+    echo "<input type='hidden' name='question' value='$q->id'>";
+    echo "<br><input type='submit'>";
+
+    // Check the answer and provide a response if there is one.
+    if($checkedAnswer != false && $_POST["question"] == $q->id) {
+        echo "<br><br><b>You answered:</b> " . htmlspecialchars($_POST["answer"]) . "<br>";
+        echo "<br>$checkedAnswer";
+    }
+    echo "</form></div>";
 }
 
 function generateAnswers($player, $question) {
@@ -152,6 +190,16 @@ function checkAnswer($player, $questionId, $userAnswer) {
     }
 
     return "Nope :)";
+}
+
+function checkName($name) {
+    if(!ctype_alnum($name))
+        return "<div>Please only use letters or numbers in your name thanks.</div>";
+    if(strlen($name) > 20)
+        return "<div>Your name is too long.</div>";
+    if(strtolower($name) == "jochem")
+        return "<div>There can only be one.</div>";
+    return false;
 }
 
 function printNameRequest() {

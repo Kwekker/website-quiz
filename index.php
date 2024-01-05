@@ -76,15 +76,17 @@
       <h3>How it works</h3>
 
       Scroll through the list of dumb questions. If you know the answer to any of the questions, put the answer into the accompanying answer field.<br>
-      Not every 'question' is actually a question. Some are just quotes or images that reference something. In these cases, just answer with what you think it is referencing.<br>
+      <br>
       A few details about answering:
       <ul>
+        <li>Not every 'question' is actually a question. Some are just quotes or images that reference something. In these cases, just answer with what you think it is referencing.</li>
+        <li>You are not going to get every reference here. If you have no idea what the fuck one of these questions means, just go to the next one.</li>
         <li>Answers are case-insensitive.</li>
-        <br><li>Most of the time the program only checks if your answer <i>includes</i> the correct answer. If the answer to a question is "blue" and you answer with "it's blue", it'll get accepted.</li>
-        <br><li>Every correct answer gives you an amount of points. The amount of points is based on how cool I think it is that you can answer that specific question with that specific answer.</li>
-        <br><li>Some questions have multiple correct answers. For example, the answer to "What is 1+1?" could be both "2" and "two".</li>
+        <li>The program only checks if your answer <i>includes</i> the correct answer. If the answer to a question is "blue" and you answer with "it's blue", it'll get accepted.</li>
+        <li>Every correct answer gives you an amount of points. The amount of points is based on how cool I think it is that you can answer that specific question with that specific answer.</li>
+        <li>Some questions have multiple correct answers. For example, the answer to "What is 1+1?" could be both "2" and "two". I have tried to add every possible way of writing the correct answer to every question.</li>
+        
       </ul>
-      
       
       I have tried to keep the questions as ungoogleable as possible, but still please just don't try; it ruins the whole purpose of this page.
       <br><br>
