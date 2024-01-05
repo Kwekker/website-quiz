@@ -41,12 +41,22 @@
   },
   {
     "id": "animal",
-    "html": "What is this?<br><img src='/aboutme/cat.jpg'>",
+    "html": "What is this?<br><img src='/aboutme/cat.jpg' alt='It's a cat'>",
     "points": [3]
   },
   {
     "id": "GET",
     "html": "Send a GET request to ./dumbQuestion.php with 'duck' set to 'true' for the answer to this question.",
     "points": [3]
+  },
+  {
+    "id": "impedance",
+    "html": "What is the equivalent impedance of this circuit at 500Hz? (In Ohms, rounded to full Ohms.)<br><img src='img/impedance.svg'>",
+    "points": [4]
+  },
+  {
+    "id": "soundcloud",
+    "html": "My comment on <a class='hidingnext' href='https://soundcloud.com/rustyk-music/orphan'>this track</a><div style='font-size:15px'>Now, you could obviously explore my SoundCloud account with ease, given this link. However, please refrain from doing so, as that shit is cringe af.</div>",
+    "points": [4]
   }
 ]
