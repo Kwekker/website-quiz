@@ -20,6 +20,7 @@
     display: block;
     min-width: 500px;
     max-width: 1000px;
+    position: relative;
 }
 
 li {
@@ -99,4 +100,49 @@ li {
     border: 3px black solid;
     display: inline-block;
     background-color: var(--lessButton);
+}
+
+.yippee {
+    display: inline-block;
+    position: absolute;
+    background-color: #90ffa8;
+    animation: woo 1s;
+    animation-delay: 0.5s;
+    width: 100px;
+    height: 100px;
+    right:200%;
+    bottom: 30%;
+
+    border: rgb(0, 0, 0) 10px solid;
+    border-radius: 10px;
+}
+
+.yippee.alt {
+    animation-name: wee;
+}
+
+@keyframes woo {
+    from {
+        right: 50%;
+        rotate: 0deg;
+        bottom: 30%;
+    }
+    to {
+        right: 150%;
+        rotate: 360deg;
+        bottom: 60%;
+    }
+}
+
+@keyframes wee {
+    from {
+        left: 50%;
+        rotate: 0deg;
+        bottom: 30%;
+    }
+    to {
+        left: 150%;
+        rotate: -360deg;
+        bottom: 60%;
+    }
 }

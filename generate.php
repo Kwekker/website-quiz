@@ -103,11 +103,15 @@ function generateQuestions() {
 
     // Generate questions.
     foreach($questions as $question) {
-        generateQuestion($question, $player, $checkedAnswer);
+        if($checkedAnswer != false && $_POST["question"] == $question->id)
+            generateQuestion($question, $player, $checkedAnswer, $isCorrect);
+        else 
+            generateQuestion($question, $player);
+            
     }
 }
 
-function generateQuestion($q, $player, $checkedAnswer = false) {
+function generateQuestion($q, $player, $checkedAnswer = false, $isCorrect = false) {
     echo "<div id='$q->id'";
 
     // Add 'completed' class if the user has answered all answers of this question.
@@ -129,9 +133,10 @@ function generateQuestion($q, $player, $checkedAnswer = false) {
     echo "<br><input type='submit'>";
 
     // Check the answer and provide a response if there is one.
-    if($checkedAnswer != false && $_POST["question"] == $q->id) {
+    if($checkedAnswer != false) {
         echo "<br><br><b>You answered:</b> " . htmlspecialchars($_POST["answer"]) . "<br>";
         echo "<br>$checkedAnswer";
+        if($isCorrect) echo "<div class='yippee'></div><div class='yippee alt'></div>";
     }
     echo "</form></div>";
 }
