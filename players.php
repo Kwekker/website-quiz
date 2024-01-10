@@ -81,20 +81,33 @@ function updateLeaderboardPosition($player) {
     $leaderboard = json_decode(fread($file, 10000));
     $leaderboardLength = count($leaderboard);
 
-    // Find old index.
+    // Find old and new index.
     $oldIndex = 0;
-    while($oldIndex < $leaderboardLength && $leaderboard[$oldIndex]->name != $player->name) $oldIndex++;
+    $newIndex = -1;
+    while($oldIndex < $leaderboardLength && $leaderboard[$oldIndex]->name != $player->name) {
+        // Check for the new index while we're at it.
+        if($newIndex < 0 && $leaderboard[$oldIndex]->points <= $player->points) 
+            $newIndex = $oldIndex;
+        $oldIndex++;
+    }
     if($oldIndex == $leaderboardLength) return false;
 
-    // Find new index.
-    $newIndex = $oldIndex;
-    while($newIndex >= 0 && $leaderboard[$newIndex]->points < $player->points) $newIndex--;
+    // Find new index AFTER the old index in the off chance that you got negative points.
+    if($newIndex < 0) {
+        do $newIndex++;
+        while($newIndex < $leaderboardLength && $leaderboard[$newIndex]->points > $player->points);
+    }
 
     // Move this player up if they just gained more points than the people above them.
     if($oldIndex != $newIndex) {
-        array_splice($leaderboard, $oldIndex, 1);
-        array_splice($leaderboard, $newIndex + 1, 0, [(object)['name' => $player->name, 'points' => $player->points]]);
+        // Remove old entry.
+        array_splice($leaderboard, $oldIndex, 1); 
+        // Move the new index if necessary.
+        if($newIndex > $oldIndex) $newIndex--;
+        // Add new entry.
+        array_splice($leaderboard, $newIndex, 0, [(object)['name' => $player->name, 'points' => $player->points]]);
     }
+    else $leaderboard[$oldIndex]->points = $player->points;
 
     // Find this player's rank.
     while($newIndex >= 0 && $leaderboard[$newIndex]->points == $player->points) $newIndex--;
