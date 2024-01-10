@@ -20,7 +20,7 @@ function generateQuestions() {
     // Handle name already set.
     if(isset($_COOKIE["name"])) {
         $name = $_COOKIE["name"];
-        if(checkName($name) != false) {
+        if(checkName($name) != false || !file_exists("people/" .strtolower($name). ".csv")) {
             echo "<div>Stop manually changing your cookies you nerd.";
             echo "<form method='post'><input type='hidden' name='reset' value='true'><input type='submit' value='I didn&#39;t???'></form>";
             echo "</div>";
@@ -81,8 +81,9 @@ function generateQuestions() {
             
             // Log answer.
             $correctText = $isCorrect ? "CORRECT:$answerIndex" : "WRONG";
+            
             file_put_contents("allAnswers.csv", 
-                date("d M y H:i:s") . ",$correctText,$player->name," .$_POST["question"]. ",\"" .$_POST["answer"]. "\"\n",
+                date("d M y H:i:s") . ",$player->name," .$_POST["question"]. ",$correctText,\"" .$_POST["answer"]. "\"\n",
                 FILE_APPEND | LOCK_EX
             );
         }
@@ -96,6 +97,7 @@ function generateQuestions() {
     // Generate user info thingy.
     echo "<div>";
     echo "Hello <b>$name</b>.<br>You currently have <b>$player->points</b> points, from <b>$player->answerCount</b> correct answers. This puts you in position <b>$player->rank</b> on the leaderboard.";
+    if($player->rank == 1) echo " Congrats :).";
     echo "</div><br><br>";
 
     // Parse question file.
@@ -134,8 +136,9 @@ function generateQuestion($q, $player, $checkedAnswer = false, $isCorrect = fals
 
     // Check the answer and provide a response if there is one.
     if($checkedAnswer != false) {
-        echo "<br><br><b>You answered:</b> " . htmlspecialchars($_POST["answer"]) . "<br>";
-        echo "<br>$checkedAnswer";
+        echo "<br><br><hr><br><b>You answered:</b> " . htmlspecialchars($_POST["answer"]);
+        echo "<br><br>$checkedAnswer";
+        // Add win animation elements.
         if($isCorrect) echo "<div class='yippee'></div><div class='yippee alt'></div>";
     }
     echo "</form></div>";
@@ -188,7 +191,10 @@ function checkAnswer($player, $questionId, $userAnswer) {
         foreach($answer->pairs as $pair) {
             foreach($pair->patterns as $pattern) {
                 // Check answer.
-                if(stristr($userAnswer, $pattern)) {
+                if (
+                    (!isset($pair->exact) || $pair->exact == false) && stristr($userAnswer, $pattern) 
+                    || isset($pair->exact) && $pair->exact == true && $userAnswer == $pattern
+                ) {
                     $ret = "";
 
                     // Check if it's correct or already answered.
