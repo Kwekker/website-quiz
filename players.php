@@ -28,6 +28,7 @@ function getPlayerData($name) {
         else
             array_push($answers[$line[1]], $line[2]);
 
+        $lastLine = $line;
         $line = fgetcsv($file);
     }
 
@@ -43,7 +44,7 @@ function getPlayerData($name) {
         'answerCount' => $answerCount, 
         'answers' => $answers, 
         'points' => $points, 
-        'rank' => $rank
+        'rank' => $rank,
     );
 }
 
@@ -184,9 +185,8 @@ function checkLeaderboard($player = NULL) {
         global $leaderboard;
         $leaderboard = json_decode(fread($file, 10000));
         fclose($file);
-        return;
     }
-    if($player->rank == -1) {
+    else if($player->rank == -1) {
         $player->rank = getLeaderboardPosition($player->name);
     }
 }

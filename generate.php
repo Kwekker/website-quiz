@@ -7,9 +7,7 @@ error_reporting(E_ALL);
 
 include "players.php";
 
-// TODO: Support for malicious shit like having an invalid name as a cookie.
-// TODO: QUESTION NAMES CAN BE PATHS!!! Make sure to refuse symbols in question names!!!
-// TODO: Same with names in cookies!!!!
+// TODO: Maybe make it so that times.json is locked during the entire procedure so no goofy things happen.
 function generateQuestions() {
 
     if(isset($_POST["reset"]) && $_POST["reset"] == "true") {
@@ -41,6 +39,16 @@ function generateQuestions() {
             return;
         }
 
+        // Check if too many name requests.
+        $times = json_decode(file_get_contents("times.json"), true);
+        if($times != false && time() - $times["__GLOBAL__"] < 1) {
+            echo "<div>Too many new names at the moment. New names are rate limited to prevent bullshittery. Wait like 2 seconds and try again.";
+            echo "<br>If this problem persists, please <a href='/aboutme#contact'>tell me about it</a> or <a href='/com'>leave a comment about it</a>, thanks :).</div>";
+            checkLeaderboard();
+            printNameRequest();
+            return;
+        }
+
         // Check if name already exists.
         if(file_exists("people/$name.csv") && !isset($_POST["thatsme"])) {
             echo "<div>That name was already taken. If that wasn't you, please use a different name.<br><form method='POST'>";
@@ -48,11 +56,16 @@ function generateQuestions() {
             echo "<input type='hidden' name='name' value='$name'>";
             echo "<input type='submit' value='Yeah, that was me.'>";
             echo "</form></div>";
-            printNameRequest();
             checkLeaderboard();
+            printNameRequest();
             return;
         }
 
+        // Name is accepted
+        if($times != false) {
+            $times->__GLOBAL__ = time();
+            file_put_contents("times.json", json_encode($times), LOCK_EX);
+        }
         setcookie("name", $name);
     }
     // Ask for a name.
@@ -65,9 +78,36 @@ function generateQuestions() {
     // Get user info.
     $player = getPlayerData($name);
 
+
+    // Check if this user isn't brute-forcing (very, very cringe).
+    if(!isset($times)) $times = json_decode(file_get_contents("times.json"), true);
+
+    if(time() < $times[$name]) {
+        echo "<div>You still have to wait a bit, slow down please.<br>You can reload the page in ". $times[$name] - time() + 1 ." seconds.</div>";
+        return;
+    }
+    else if(time() - $times[$name] < 1 || isset($_GET["bruteforce"])) {
+        echo "<div>Ok yeah no you are answering questions WAY too fast. You're getting an 8 second timeout. Please relax.<br>";
+        echo "<span style='font-size:0px;'>Also you can bet your silly ass this is getting logged you nerd.</span><br>";
+        echo "Still waiting.. <a href='.' class='button sec8'>Back to the questions</a></div>";
+
+        // Log the time except way larger for a time-out.
+        $times[$name] = time() + 8;
+        file_put_contents("times.json", json_encode($times), LOCK_EX);
+
+        // Log error.
+        if(isset($_POST["question"]) && isset($_POST["answer"])) error_log("BRUTE_FORCE: $name," . $_POST["question"] .",". $_POST["answer"]);
+        else error_log("BRUTE_FORCE: $name," . " no questions answered.");
+        return;
+    }
+
     // Check provided answer. This has to happen here to update the user info.
     $checkedAnswer = false;
     if(isset($_POST["question"]) && isset($_POST["answer"])) {
+        // Log the time
+        $times[$name] = time();
+        file_put_contents("times.json", json_encode($times), LOCK_EX);
+
         if(!ctype_alnum($_POST["question"]) || strlen($_POST["question"]) > 15) {
             echo "<div>Kindly fuck off :)</div>";
             return;

@@ -89,7 +89,8 @@
         
       </ul>
       
-      I have tried to keep the questions as ungoogleable as possible, but still please just don't try; it ruins the whole purpose of this page.
+      I have tried to keep the questions as ungoogleable as possible, but still please just don't try.
+      You can google <i>how</i> to answer the questions of course, like for example looking up Ohm's Law is completely fine. However, looking up the exact words I used in my questions to find out what they're about or what they're referencing is kind of cringe.
       <br><br>
       tl;dr just answer the fuckin questions.
     </div>

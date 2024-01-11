@@ -156,3 +156,19 @@ li {
         bottom: 60%;
     }
 }
+
+.sec8 {
+    animation: waiter 500ms;
+    animation-fill-mode: forwards;
+    animation-delay: 8s;
+    transform: scaleX(0);
+}
+
+@keyframes waiter {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
