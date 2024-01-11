@@ -55,19 +55,13 @@
         </div>
     </div>
     <br>
+    <?php else: ?>
+    <h3>Leaderboard</h3>
+    <div style="font-size:20px;text-align:center;">There will be a leaderboard here when there are enough players for that.</div>
+    <br>
     <?php endif; ?>
     
   </article>
-
-<!-- 
-  TODO:
-    Reference style
-    Reference storage
-    Reference validation
-    Names
-    Leaderboard
-    Counting
--->
 
   <article>
     <div class="unuglify">
