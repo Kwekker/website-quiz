@@ -14,6 +14,9 @@ answers/*.json
 people/*.csv
 leaderboard.json
 allAnswers.csv
+times.json
+test.php
+test2.php
 
 # Answer specific php files
 # (don't worry they literally just contain an if/else statement and 2 echo's)
