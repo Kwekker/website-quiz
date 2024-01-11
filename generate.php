@@ -63,7 +63,9 @@ function generateQuestions() {
 
         // Name is accepted
         if($times != false) {
-            $times->__GLOBAL__ = time();
+            $times["__GLOBAL__"] = time();
+            // Initialize name to 0 to make sure it's in the times.json file but it doesn't get flagged as a brute-forcer.
+            $times[$name] = 0;
             file_put_contents("times.json", json_encode($times), LOCK_EX);
         }
         setcookie("name", $name);
@@ -83,7 +85,9 @@ function generateQuestions() {
     if(!isset($times)) $times = json_decode(file_get_contents("times.json"), true);
 
     if(time() < $times[$name]) {
-        echo "<div>You still have to wait a bit, slow down please.<br>You can reload the page in ". $times[$name] - time() + 1 ." seconds.</div>";
+        $secs =  $times[$name] - time();
+        echo "<div>You still have to wait a bit, slow down please.<br>You can reload the page in $secs seconds.. (A button will appear)<br>";
+        echo "<a href='.' class='button sec8' style='animation-delay: " .$secs. ".2s'>Back to the questions</a></div>";
         return;
     }
     else if(time() - $times[$name] < 1 || isset($_GET["bruteforce"])) {

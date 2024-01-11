@@ -11,10 +11,10 @@ answers/*.json
 
 # Don't include user data because it's not important.
 # These files should get added automatically and really shouldn't need to be changed by hand.
-people/*.csv
-leaderboard.json
-allAnswers.csv
 times.json
+leaderboard.json
+people/*.csv
+allAnswers.csv
 test.php
 test2.php
 
