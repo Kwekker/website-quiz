@@ -6,7 +6,7 @@
   },
   {
     "id": "minecraft",
-    "html": "Who has 'minecraft' in their name?",
+    "html": "Who has 'minecraft' in their name?<br>(Like \"[first name] Minecraft\".)",
     "points": [5,3]
   },
   {
@@ -23,6 +23,11 @@
     "id": "taylor",
     "html": "Give me all of Taylor's (official) names/aliases. As separate answers.",
     "points": [1,2,2]
+  },
+  {
+    "id": "comment",
+    "html": "The answer to this question is in a comment.<!--The answer is 'small kitties are very cute and nice and soft and cuddly' -->",
+    "points":[2]
   },
   {
     "id": "symbol1",
@@ -58,5 +63,60 @@
     "id": "soundcloud",
     "html": "My comment on <a class='hidingnext' href='https://soundcloud.com/rustyk-music/orphan'>this track</a><div style='font-size:15px'>Now, you could obviously explore my SoundCloud account with ease, given this link. However, please refrain from doing so, as that shit is cringe af.</div>",
     "points": [4]
+  },
+  {
+    "id": "what",
+    "html": "What is this?<br><marquee style='width:200px;'>Quack</marquee>",
+    "points": [2]
+  },
+  {
+    "id": "sideways",
+    "html": "Which lashing did these cats use?<br><img src='img/sideways_cat.jpg'>  <img src='img/sideways_cat2.jpg'>",
+    "points": [5]
+  },
+  {
+    "id": "audio1",
+    "html": "What is this?<br><audio controls><source src='img/audio1.mp3' type='audio/mpeg'>Your browser is cringe.</audio><!--I most definitely do not have the rights to this, but I'm not earning any money with this site so it might be fine maybe possibly???\nAlso fuck off stop snooping in the html you little Worm-->",
+    "points": [5]
+  },
+  {
+    "id": "one",
+    "html": "What does the sentence <i>‘I got CP-one'd :(’</i> mean?",
+    "points": [5]
+  },
+  {
+    "id": "console1",
+    "html": "What is this?<br><img style='height:300px' src='img/console1.png'>",
+    "points": [2]
+  },
+  {
+    "id": "console2",
+    "html": "And what is this?<br><img style='height:300px' src='img/console2.png'>",
+    "points": [3]
+  },
+  {
+    "id":"directory",
+    "html":"Give me a command line command that puts a detailed list of the current directory (including permissions and file sizes) into a file named \"dumb_shit.txt\".<br>Make the command as short as possible.<br><i>exact</i>",
+    "points":[3]
+  },
+  {
+    "id":"negative",
+    "html":"This question will literally give you negative points.<br>You will lose a point if you answer this question.<br>The answer is \"Balloon\".",
+    "points":[-1]
+  },
+  {
+    "id":"before",
+    "html":"What was on this page (jochemleijenhorst.com/quiz) before this quiz was on it?",
+    "points":[3]
+  },
+  {
+    "id":"fox",
+    "html":"What did I mean with \"I did a Toby Fox\" in the answer response on the previous question? Name the website.<br>(If you didn't get that question, too bad lmao)",
+    "points":[5]
+  },
+  {
+    "id":"gif1",
+    "html":"I spent way too long on this.<br><img src='img/gif1.gif'><br><h2>Replace this shit with the cat you nerd please</h2>",
+    "points":[5]
   }
 ]
