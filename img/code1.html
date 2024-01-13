@@ -1,0 +1,86 @@
+<!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #408080; font-style: italic">// Thanks hilite.me for the syntax highlighting :)</span>
+  
+<span style="color: #BC7A00">#include &lt;stdio.h&gt;</span>
+<span style="color: #BC7A00">#include &lt;stdint.h&gt;</span>
+<span style="color: #BC7A00">#include &lt;string.h&gt;</span>
+<span style="color: #BC7A00">#include &lt;ctype.h&gt;</span>
+
+<span style="color: #BC7A00">#define MAX_INPUT 48</span>
+
+<span style="color: #408080; font-style: italic">// Name of the pet</span>
+<span style="color: #B00040">char</span> petName[<span style="color: #666666">4</span>] <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;cat&quot;</span>;
+<span style="color: #B00040">uint8_t</span> petSize <span style="color: #666666">=</span> <span style="color: #666666">3</span>;
+<span style="color: #B00040">uint8_t</span> <span style="color: #0000FF">proceed</span>(<span style="color: #B00040">char</span> <span style="color: #666666">**</span>c);
+
+<span style="color: #B00040">void</span> <span style="color: #0000FF">move</span>(<span style="color: #B00040">char</span> <span style="color: #666666">**</span>s) {
+    (<span style="color: #666666">*</span>s)<span style="color: #666666">--</span>;
+}
+
+<span style="color: #B00040">void</span> <span style="color: #0000FF">switchPets</span>(<span style="color: #B00040">char</span> <span style="color: #666666">**</span>s) {
+    memcpy(petName, <span style="color: #BA2121">&quot;duck&quot;</span>, <span style="color: #666666">4</span>);
+    petSize <span style="color: #666666">=</span> <span style="color: #666666">4</span>;
+}
+
+<span style="color: #B00040">void</span> <span style="color: #0000FF">addPet</span>(<span style="color: #B00040">char</span> <span style="color: #666666">**</span>s) {
+    <span style="color: #B00040">char</span> buf[<span style="color: #666666">4</span>];
+    memcpy(buf, petName, petSize);
+    <span style="color: #408080; font-style: italic">// Buffer index is zero</span>
+    <span style="color: #B00040">uint8_t</span> bufIndex <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+
+    <span style="color: #008000; font-weight: bold">while</span>(buf[bufIndex]) {
+        <span style="color: #B00040">char</span> temp <span style="color: #666666">=</span> <span style="color: #666666">**</span>s;
+        <span style="color: #666666">**</span>s <span style="color: #666666">=</span> buf[bufIndex];
+        buf[bufIndex<span style="color: #666666">++</span>] <span style="color: #666666">=</span> temp;
+        <span style="color: #008000; font-weight: bold">if</span>(bufIndex <span style="color: #666666">==</span> petSize) bufIndex <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+        (<span style="color: #666666">*</span>s)<span style="color: #666666">++</span>;
+    }
+}
+
+<span style="color: #408080; font-style: italic">// Bad input handler (This genuinly disgusts me, though in a way it&#39;s also beautiful.)</span>
+<span style="color: #B00040">void</span> <span style="color: #0000FF">obliterate</span>(<span style="color: #B00040">char</span> <span style="color: #666666">**</span>s) {<span style="color: #008000; font-weight: bold">for</span>(<span style="color: #B00040">char</span> <span style="color: #666666">*</span>c <span style="color: #666666">=</span> <span style="color: #666666">*</span>s; <span style="color: #666666">*</span>c; <span style="color: #666666">*</span>c<span style="color: #666666">++</span> <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;E&#39;</span>);}
+
+<span style="color: #B00040">void</span> (<span style="color: #666666">*</span>getFunc(<span style="color: #B00040">char</span> <span style="color: #666666">*</span>input))(<span style="color: #B00040">char</span> <span style="color: #666666">**</span>s) {
+    <span style="color: #008000; font-weight: bold">struct</span> funcName {
+        <span style="color: #B00040">char</span> name[<span style="color: #666666">3</span>];
+        <span style="color: #B00040">void</span> (<span style="color: #666666">*</span>f)(<span style="color: #B00040">char</span><span style="color: #666666">**</span>s);
+    } 
+    functions[] <span style="color: #666666">=</span> {
+        {<span style="color: #BA2121">&quot;add&quot;</span>, addPet},
+        {<span style="color: #BA2121">&quot;swc&quot;</span>, switchPets},
+        {<span style="color: #BA2121">&quot;mov&quot;</span>, move}
+    };
+    <span style="color: #008000; font-weight: bold">for</span>(<span style="color: #B00040">uint8_t</span> i <span style="color: #666666">=</span> <span style="color: #666666">0</span>; i <span style="color: #666666">&lt;</span> (<span style="color: #008000; font-weight: bold">sizeof</span>(functions) <span style="color: #666666">/</span> <span style="color: #008000; font-weight: bold">sizeof</span>(<span style="color: #666666">*</span>functions)); i<span style="color: #666666">++</span>) {
+        <span style="color: #008000; font-weight: bold">if</span>(memcmp(input, functions[i].name, <span style="color: #666666">3</span>) <span style="color: #666666">==</span> <span style="color: #666666">0</span>) {
+            <span style="color: #008000; font-weight: bold">return</span> functions[i].f;
+        }
+    }
+    <span style="color: #008000; font-weight: bold">return</span> obliterate;
+}
+
+<span style="color: #B00040">int</span> main(<span style="color: #B00040">int</span> argc, <span style="color: #B00040">char</span><span style="color: #666666">*</span> argv[]) {
+    setbuf(stdout, <span style="color: #008000">NULL</span>);
+    <span style="color: #B00040">char</span> buffer[<span style="color: #666666">10</span>] <span style="color: #666666">=</span> {<span style="color: #666666">0</span>};
+    <span style="color: #B00040">char</span> <span style="color: #666666">*</span>output <span style="color: #666666">=</span> buffer;
+    
+    <span style="color: #008000; font-weight: bold">for</span>(<span style="color: #B00040">uint8_t</span> commandIndex <span style="color: #666666">=</span> <span style="color: #666666">0</span>; commandIndex <span style="color: #666666">&lt;</span> MAX_INPUT <span style="color: #666666">/</span> <span style="color: #666666">3</span>; commandIndex<span style="color: #666666">++</span>) {
+        <span style="color: #008000; font-weight: bold">if</span>(proceed(argv <span style="color: #666666">+</span> <span style="color: #666666">1</span>)) <span style="color: #008000; font-weight: bold">break</span>;
+        <span style="color: #008000; font-weight: bold">for</span>(<span style="color: #B00040">uint8_t</span> repeatCount <span style="color: #666666">=</span> <span style="color: #666666">0</span>; repeatCount <span style="color: #666666">&lt;</span> (isdigit(<span style="color: #666666">*</span>argv[<span style="color: #666666">1</span>]) <span style="color: #666666">?</span> (<span style="color: #666666">*</span>(argv[<span style="color: #666666">1</span>]) <span style="color: #666666">-</span> <span style="color: #BA2121">&#39;0&#39;</span>) <span style="color: #666666">:</span> <span style="color: #666666">1</span>); repeatCount<span style="color: #666666">++</span>)
+            getFunc(argv[<span style="color: #666666">1</span>] <span style="color: #666666">-</span> <span style="color: #666666">3</span>)(<span style="color: #666666">&amp;</span>output);
+        <span style="color: #008000; font-weight: bold">if</span>(isdigit(<span style="color: #666666">*</span>argv[<span style="color: #666666">1</span>])) argv[<span style="color: #666666">1</span>]<span style="color: #666666">++</span>;
+    }
+
+    <span style="color: #408080; font-style: italic">// Print the output</span>
+    puts(output);
+    <span style="color: #008000; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+}
+
+<span style="color: #B00040">uint8_t</span> proceed(<span style="color: #B00040">char</span> <span style="color: #666666">**</span>c) {
+    <span style="color: #008000; font-weight: bold">for</span>(<span style="color: #B00040">uint8_t</span> i <span style="color: #666666">=</span> <span style="color: #666666">0</span>; i <span style="color: #666666">&lt;</span> <span style="color: #666666">3</span>; i<span style="color: #666666">++</span>) {
+        <span style="color: #008000; font-weight: bold">if</span>(<span style="color: #666666">!*</span>(<span style="color: #666666">*</span>c)<span style="color: #666666">++</span>) {
+            <span style="color: #008000; font-weight: bold">return</span> <span style="color: #666666">-1</span>;
+        }
+    }
+    <span style="color: #008000; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+}
+</pre></div>
+  
