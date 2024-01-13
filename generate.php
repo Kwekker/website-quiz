@@ -142,14 +142,14 @@ function generateQuestions() {
     echo "<div>";
     echo "Hello <b>$name</b>.<br>You currently have <b>$player->points</b> points, from <b>$player->answerCount</b> correct answers. This puts you in position <b>$player->rank</b> on the leaderboard.";
     if($player->rank == 1) echo " Congrats :).";
-    echo "</div><br><br>";
+    echo "</div><br>";
 
     // Parse question file.
     $questions = json_decode(file_get_contents("questions.json"));
 
     // Generate questions.
     foreach($questions as $question) {
-        if($checkedAnswer != false && $_POST["question"] == $question->id)
+        if($checkedAnswer != false && isset($question->id) && $_POST["question"] == $question->id)
             generateQuestion($question, $player, $checkedAnswer, $isCorrect);
         else 
             generateQuestion($question, $player);
@@ -158,6 +158,12 @@ function generateQuestions() {
 }
 
 function generateQuestion($q, $player, $checkedAnswer = false, $isCorrect = false) {
+    // Handle headers. These don't have an id and are just titles for sections.
+    if(!isset($q->id)) {
+        echo "<div class='heading'>$q->html</div>";
+        return;
+    }
+
     echo "<div id='$q->id'";
 
     // Add 'completed' class if the user has answered all answers of this question.

@@ -9,6 +9,9 @@ $problems = 0;
 ob_start();
 
 foreach($questions as $q) {
+    // Account for headers.
+    if(!isset($q->id)) continue;
+
     if(!file_exists("answers/$q->id.json")) {
         echo "File for <i>$q->id</i> was not found or has incorrect json.<br>";
         $problems++;

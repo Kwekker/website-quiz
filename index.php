@@ -20,9 +20,7 @@
   </h1>
 
   <article class="topPart">
-    <a href="..">
-      <button class="button"> Main menu </button>
-    </a>
+    <a href="/" class="button">Main menu</a>
     <br><br>
 
     <h2 style="width:90%;margin-left: 5%;"> 
@@ -70,22 +68,36 @@
       <h3>How it works</h3>
 
       Scroll through the list of dumb questions. If you know the answer to any of the questions, put the answer into the accompanying answer field.<br>
-      <br>
-      A few details about answering:
-      <ul>
-        <li>All answers are logged for my personal enjoyment, so don't put your credit card information in them.</li>
-        <li>Not every 'question' is actually a question. Some are just quotes or images that reference something. In these cases, just answer with what you think it is referencing.</li>
-        <li>You are not going to get every reference here. If you have no idea what the fuck one of these questions means, just go to the next one.</li>
-        <li>Answers are case-insensitive.</li>
-        <li>The program only checks if your answer <i>includes</i> the correct answer. If the answer to a question is "blue" and you answer with "it's blue", it'll get accepted. This is not true for questions with the <i>exact</i> tag.</li>
-        <li>Every correct answer gives you an amount of points. The amount of points is based on how cool I think it is that you can answer that specific question with that specific answer.</li>
-        <li>Some questions have multiple correct answers. For example, the answer to "What is 1+1?" could be both "2" and "two". I have tried to add every possible way of writing the correct answer to every question.</li>
-        
-      </ul>
+      The person with the most points gets to be on the <a href="/" class="hidingnext fakelink">home page</a>!!!
+      <div class="textBlock">
+        This could be you! <br>
+        <img src="img/advertisement.png" alt="An image of my homepage with the text “henry is incredibly cool because they're in first place on the quiz leaderboard."><br>
+        (Please imagine your name is Henry when viewing this image)
+      </div>
+      <span><details>
+        <!-- The details tag is an amazing addition to html I love it. -->
+        <summary>A few details about answering (if you care):</summary>
+        <ul>
+          <li>All answers are logged for my personal enjoyment, so don't put your credit card information in them.</li>
+          <li>Not every 'question' is actually a question. Some are just quotes or images that reference something. In these cases, just answer with what you think it is referencing.</li>
+          <li>You are not going to get every reference here. If you have no idea what the fuck one of these questions means, just go to the next one.</li>
+          <li>Answers are case-insensitive.</li>
+          <li>The program only checks if your answer <i>includes</i> the correct answer. If the answer to a question is "blue" and you answer with "it's blue", it'll get accepted. This is not true for questions with the <i>exact</i> tag.</li>
+          <li>Every correct answer gives you an amount of points. The amount of points is based on how cool I think it is that you can answer that specific question with that specific answer.</li>
+          <li>Some questions have multiple correct answers. For example, the answer to "What is 1+1?" could be both "2" and "two". I have tried to add every possible way of writing the correct answer to every question.</li>
+        </ul>
+      </details></span>
       
-      I have tried to keep the questions as ungoogleable as possible, but still please just don't try.
-      You can google <i>how</i> to answer the questions of course, like for example looking up Ohm's Law is completely fine. However, looking up the exact words I used in my questions to find out what they're about or what they're referencing is kind of cringe.
-      <br><br>
+      <p>
+        I have tried to keep the questions as ungoogleable as possible, but still please just don't try.
+        You can google <i>how</i> to answer the questions of course, like for example looking up Ohm's Law is completely fine. However, looking up the exact words I used in my questions to find out what they're about or what they're referencing is kind of cringe.
+      <p> <!--No closer needed. The p element is just chill like that-->
+        I'll probably update the questions regularly, when I come up with/find the time to make more.<br>
+        The last update to the questions was at
+        <?php echo date("d M Y", filemtime("questions.json"));?>.
+      </p>
+
+      <br>
       tl;dr just answer the fuckin questions.
     </div>
     <div id="questions">

@@ -1,5 +1,13 @@
 [
   {
+    "html": "<h3>The questions</h3>These aren't really in any order"
+  },
+  {
+    "id": "taylor",
+    "html": "Give me all of Taylor's (official) names/aliases. As separate answers.",
+    "points": [1,2,2]
+  },
+  {
     "id": "brain",
     "html": "<q>My brain is just too large</q>",
     "points": [5]
@@ -20,14 +28,12 @@
     "points": [7]
   },
   {
-    "id": "taylor",
-    "html": "Give me all of Taylor's (official) names/aliases. As separate answers.",
-    "points": [1,2,2]
-  },
-  {
     "id": "comment",
     "html": "The answer to this question is in a comment.<!--The answer is 'small kitties are very cute and nice and soft and cuddly' -->",
     "points":[2]
+  },
+  {
+    "html": "<h3>Some very poorly drawn symbols coming up</h3>Just answer with what you think it <i>is</i> or what it is <i>from</i>."
   },
   {
     "id": "symbol1",
@@ -43,6 +49,11 @@
     "id": "symbol3",
     "html": "<img src='img/symbol3.svg'>",
     "points": [5]
+  },
+  {
+    "id":"symbol4",
+    "html":"<br><img src='img/symbol4.svg'>",
+    "points":[4]
   },
   {
     "id": "animal",
@@ -81,7 +92,7 @@
   },
   {
     "id": "one",
-    "html": "What does the sentence <i>‘I got CP-one'd :(’</i> mean?",
+    "html": "What does the sentence <i>“I got CP-one'd :(”</i> mean?",
     "points": [5]
   },
   {
@@ -96,7 +107,7 @@
   },
   {
     "id":"directory",
-    "html":"Give me a command line command that puts a detailed list of the current directory (including permissions and file sizes) into a file named \"dumb_shit.txt\".<br>Make the command as short as possible.<br><i>exact</i>",
+    "html":"Give me a command line command that puts a detailed list of the current directory (including permissions and file sizes) into a file named \"dumb_shit.txt\".<br>Make the command as short as possible.<br>This question is <i>exact</i>.",
     "points":[3]
   },
   {
@@ -116,7 +127,12 @@
   },
   {
     "id":"gif1",
-    "html":"I spent way too long on this.<br><img src='img/gif1.gif'><br><h2>Replace this shit with the cat you nerd please</h2>",
+    "html":"I spent way too long on this<br><img src='img/gif1.gif'>",
     "points":[5]
+  },
+  {
+    "id":"code1",
+    "html":"Below is a very readable and well-commented C program. You can view the code here, or, if you prefer, you can copy&paste/download it from <a href='img/code1.c'>here</a> to look at it in your favorite code editor. <span class='hidingnext'>Slight warning though: severe outbursts of anger, frustration and/or headaches are not uncommon when viewing this code</span>. <small>Looking at it hurts my eyes :(</small> <details><summary>The code</summary><iframe src='img/code1.html'></iframe></details><br>Provide the shortest possible input that will output \"catduckcat\". Good luck :)<br>This question is <i>exact</i>.",
+    "points":[7]
   }
 ]
