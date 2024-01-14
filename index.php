@@ -63,7 +63,11 @@
 
   <article>
     <div class="unuglify">
-      <portal id="exampleportal" src="https://jochemleijenhorst.com/" height="300px"></portal>
+
+      <?php 
+        if(isset($_GET["fb"])) echo "<h2>Thank you for the feedback!</h2>";
+        else if(isset($_GET["bfb"])) echo "<h2>Something went wrong while adding your feedback! Sorry lol!</h2>"
+      ?>
 
       <h3>How it works</h3>
 
@@ -80,7 +84,7 @@
         <ul>
           <li>All answers are logged for my personal enjoyment, so don't put your credit card information in them.</li>
           <li>Not every 'question' is actually a question. Some are just quotes or images that reference something. In these cases, just answer with what you think it is referencing.</li>
-          <li>You are not going to get every reference here. If you have no idea what the fuck one of these questions means, just go to the next one.</li>
+          <li>You are not going to get every reference here. If you have no idea wtf one of these questions means, just go to the next one.</li>
           <li>Answers are case-insensitive.</li>
           <li>The program only checks if your answer <i>includes</i> the correct answer. If the answer to a question is "blue" and you answer with "it's blue", it'll get accepted. This is not true for questions with the <i>exact</i> tag.</li>
           <li>Every correct answer gives you an amount of points. The amount of points is based on how cool I think it is that you can answer that specific question with that specific answer.</li>

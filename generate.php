@@ -157,7 +157,7 @@ function generateQuestions() {
     }
 }
 
-function generateQuestion($q, $player, $checkedAnswer = false, $isCorrect = false) {
+function generateQuestion($q, $player = NULL, $checkedAnswer = false, $isCorrect = false) {
     // Handle headers. These don't have an id and are just titles for sections.
     if(!isset($q->id)) {
         echo "<div class='heading'>$q->html</div>";
@@ -171,7 +171,7 @@ function generateQuestion($q, $player, $checkedAnswer = false, $isCorrect = fals
         echo " class='completed'";
     echo ">";
 
-    // Print answers and points on the right side.
+    // Generate points list.
     generateAnswers($player, $q);
 
     // Print question html.
@@ -182,7 +182,10 @@ function generateQuestion($q, $player, $checkedAnswer = false, $isCorrect = fals
     echo "<label for='$q->id-answer'>Answer: </label>";
     echo "<input type='text' name='answer' id='$q->id-answer'>";
     echo "<input type='hidden' name='question' value='$q->id'>";
-    echo "<br><input type='submit'>";
+    echo "<br><input type='submit'></form>";
+
+    // Generate dumb question button.
+    echo "<form action='reporter.php' method='post' class='dumb'><input type='hidden' name='question' value='$q->id'><input type='hidden' name='name' value='$player->name'><input type='submit' value='This question is dumb'></form>";
 
     // Check the answer and provide a response if there is one.
     if($checkedAnswer != false) {
@@ -191,13 +194,14 @@ function generateQuestion($q, $player, $checkedAnswer = false, $isCorrect = fals
         // Add win animation elements.
         if($isCorrect) echo "<div class='yippee'></div><div class='yippee alt'></div>";
     }
-    echo "</form></div>";
+    echo "</div>";
 }
 
 function generateAnswers($player, $question) {
+    echo "<div class='points'>";
+
     // Count the amount of point values the question has in questions.json.
     $answerCount = count($question->points);
-    echo "<div class='points'>";
     
     // Singular answer questions:
     if($answerCount == 1) {
@@ -226,6 +230,7 @@ function generateAnswers($player, $question) {
             echo ".</div>";
         }
     }
+
     echo "</div>";
 }
 

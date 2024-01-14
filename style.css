@@ -51,7 +51,7 @@ li {
     margin-right: auto;
 }
 
-.points {
+#questions .points {
     float: right;
     /* text-align: right; */
     margin-left: 50px;
@@ -60,6 +60,12 @@ li {
 .points b {
     position: relative;
     right: 30px;
+}
+
+.dumb {
+    float: right;
+    position: relative;
+    bottom: 15px;
 }
 
 /* Quotes */

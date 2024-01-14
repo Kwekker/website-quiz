@@ -4,7 +4,7 @@
   },
   {
     "id": "taylor",
-    "html": "Give me all of Taylor's (official) names/aliases. As separate answers.",
+    "html": "Give me all of Taylor's (official) names/aliases. As separate answers.<br><br>",
     "points": [1,2,2]
   },
   {

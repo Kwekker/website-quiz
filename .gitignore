@@ -17,6 +17,7 @@ people/*.csv
 allAnswers.csv
 test.php
 test2.php
+reports.log
 
 # Answer specific php files
 # (don't worry they literally just contain an if/else statement and 2 echo's)
