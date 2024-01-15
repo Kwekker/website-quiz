@@ -185,7 +185,7 @@ function generateQuestion($q, $player = NULL, $checkedAnswer = false, $isCorrect
     echo "<br><input type='submit'></form>";
 
     // Generate dumb question button.
-    echo "<form action='reporter.php' method='post' class='dumb'><input type='hidden' name='question' value='$q->id'><input type='hidden' name='name' value='$player->name'><input type='submit' value='This question is dumb'></form>";
+    if(isset($player->name)) echo "<form action='reporter.php' method='post' class='dumb'><input type='hidden' name='question' value='$q->id'><input type='hidden' name='name' value='$player->name'><input type='submit' value='This question is dumb'></form>";
 
     // Check the answer and provide a response if there is one.
     if($checkedAnswer != false) {

@@ -37,6 +37,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Obscure references nobody will get.">
   <title>Report a question</title>
   <link rel="stylesheet" href="/main.css" type="text/css">
@@ -73,15 +74,19 @@
       <div id="questions">
         <?php
           require "generate.php";
+
           // Now that I think about it, questions in questions.json should really be keyed by their ID shouldn't they?
           // Anyway..
           $questions = json_decode(file_get_contents("questions.json"));
           foreach($questions as $q) 
             if(isset($q->id) && $q->id == $_POST["question"]) break;
 
-          echo "<div>$q->html";
-          echo generateAnswers(NULL, $q);
-          echo "</div>"
+          if(isset($_POST["answer"])) generateQuestion($q, NULL, "You can't answer the question here you nerd");
+          else generateQuestion($q);
+          // echo "<div>";
+          // echo generateAnswers(NULL, $q);
+          // echo $q->html;
+          // echo "</div>"
         ?>
         <br>
         <div>
@@ -90,12 +95,24 @@
             <input type="text" name="givenName" id="name" style="margin-left:0;" value="<?php if(isset($_POST["name"])) echo $_POST["name"]; ?>">
             <br><br>
             Choose:<br>
-            <input type="radio" name="reason" id="wording" value="wording"><label for="wording">The question itself is dumb</label><br>
-            <input type="radio" name="reason" id="points" value="points"><label for="points">The amount of points is dumb</label><br>
-            <input type="radio" name="reason" id="answerRight" value="answerRight"><label for="answerRight">My answer should be correct</label><br>
-            <input type="radio" name="reason" id="answerWrong" value="answerWrong"><label for="answerWrong">The correct answer is wrong</label><br>
-            <input type="radio" name="reason" id="like" value="like"><label for="like">Idk just fuck this question in general</label><br>
-            <input type="radio" name="reason" id="other" value="other"><label for="other">Something else</label><br>
+            <input type="radio" name="reason" id="wording" value="wording">
+            <label for="wording">The question itself is dumb</label><br>
+            
+            <input type="radio" name="reason" id="points" value="points">
+            <label for="points">The amount of points is dumb</label><br>
+            
+            <input type="radio" name="reason" id="answerRight" value="answerRight">
+            <label for="answerRight">My answer should be correct</label><br>
+            
+            <input type="radio" name="reason" id="answerWrong" value="answerWrong">
+            <label for="answerWrong">The correct answer is wrong</label><br>
+            
+            <input type="radio" name="reason" id="fuck" value="fuck">
+            <label for="fuck">Idk just fuck this question in general</label><br>
+            
+            <input type="radio" name="reason" id="other" value="other">
+            <label for="other">Something else</label><br>
+            
             <br>
             <input type="hidden" name="question" value="<?php echo $_POST["question"]; ?>">
             <label for="reason">Explain (doesn't have to be an essay):</label> <br>

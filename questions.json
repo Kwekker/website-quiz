@@ -67,7 +67,7 @@
   },
   {
     "id": "impedance",
-    "html": "What is the equivalent impedance of this circuit at 500Hz? (In Ohms, rounded to full Ohms.)<br><img src='img/impedance.svg'>",
+    "html": "What is the equivalent impedance of this circuit at 500Hz? (In Ohms, rounded to full Ohms.)<br><img src='img/impedance.svg' style='width:300px'>",
     "points": [4]
   },
   {
@@ -97,12 +97,12 @@
   },
   {
     "id": "console1",
-    "html": "What is this?<br><img style='height:300px' src='img/console1.png'>",
+    "html": "What is this?<br><img src='img/console1.png'>",
     "points": [2]
   },
   {
     "id": "console2",
-    "html": "And what is this?<br><img style='height:300px' src='img/console2.png'>",
+    "html": "And what is this?<br><img src='img/console2.png'>",
     "points": [3]
   },
   {
@@ -134,5 +134,10 @@
     "id":"code1",
     "html":"Below is a very readable and well-commented C program. You can view the code here, or, if you prefer, you can copy&paste/download it from <a href='img/code1.c'>here</a> to look at it in your favorite code editor. <span class='hidingnext'>Slight warning though: severe outbursts of anger, frustration and/or headaches are not uncommon when viewing this code</span>. <small>Looking at it hurts my eyes :(</small> <details><summary>The code</summary><iframe src='img/code1.html'></iframe></details><br>Provide the shortest possible input that will output \"catduckcat\". Good luck :)<br>This question is <i>exact</i>.",
     "points":[7]
+  },
+  {
+    "id":"food1",
+    "html":"What are we having?<br><img src='img/food1.jpg'>",
+    "points":[3]
   }
 ]

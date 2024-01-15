@@ -2,7 +2,8 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Obscure references nobody will get.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A quiz with questions and obscure references nobody will get.">
   <title>Jochem's quiz</title>
   <link rel="stylesheet" href="/main.css" type="text/css">
   <link rel="stylesheet" href="style.css" type="text/css">
@@ -99,6 +100,8 @@
         I'll probably update the questions regularly, when I come up with/find the time to make more.<br>
         The last update to the questions was at
         <?php echo date("d M Y", filemtime("questions.json"));?>.
+      <p>
+        If you don't like one of the questions, you can press the <a href="/experiments/comments?but"><button>This question is dumb</button></a> button. You can then tell me why you don't like the question, and I might change it :).
       </p>
 
       <br>

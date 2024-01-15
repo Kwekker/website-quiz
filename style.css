@@ -78,7 +78,7 @@ li {
 #questions img {
     max-height: 300px;
     margin-top: 10px;
-    max-width: 100%;
+    max-width: 90%;
 }
 
 #questions > div > div {
@@ -196,4 +196,27 @@ li {
     to {
         transform: scaleX(1);
     }
+}
+
+
+/* Phones (cringe) */
+@media only screen and (max-width: 630px) {
+    input[type=submit] {
+        font-size:15px;
+    }
+
+    #questions .points {
+        float: none;
+        margin-left: 0;
+    }
+
+    .points b {
+        right: 10px;
+    }
+
+    #questions > div:not(.heading) {
+        min-width: 100px;
+    }
+
+
 }
