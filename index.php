@@ -1,9 +1,21 @@
+<?php 
+  include "generate.php";
+  if(headers_sent()) echo "fuck!!";
+?><?php
+  $player = getPlayer(); 
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="A quiz with questions and obscure references nobody will get.">
+  <meta property="og:title" content="Jochem's connect 4 thing"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://jochemleijenhorst.com"/>
+  <meta property="og:site_name" content="jochemleijenhorst.com"/>
+  <meta property="og:description" content="You can play connect 4 against other jochemleijenhorst.com fans!!"/>
   <title>Jochem's quiz</title>
   <link rel="stylesheet" href="/main.css" type="text/css">
   <link rel="stylesheet" href="style.css" type="text/css">
@@ -28,11 +40,15 @@
       A quiz with really obscure questions
     </h2>
     <?php 
-      ob_start();
-      include "generate.php";
-      generateQuestions();
-      $questionHTML = ob_get_contents();
-      ob_end_clean();
+      if(is_string($player)) {
+        $questionHTML = $player;
+      }
+      else {
+        ob_start();
+        generateQuestions($player);
+        $questionHTML = ob_get_contents();
+        ob_end_clean();
+      }
 
       if($leaderboard != false && count($leaderboard) >= 3):
         $pos2 = $leaderboard[0]->points == $leaderboard[1]->points ? 1 : 2;
@@ -84,9 +100,9 @@
         <summary>A few details about answering (if you care):</summary>
         <ul>
           <li>All answers are logged for my personal enjoyment, so don't put your credit card information in them.</li>
-          <li>Not every 'question' is actually a question. Some are just quotes or images that reference something. In these cases, just answer with what you think it is referencing.</li>
-          <li>You are not going to get every reference here. If you have no idea wtf one of these questions means, just go to the next one.</li>
-          <li>Answers are case-insensitive.</li>
+          <li><b>Not every 'question' is actually a question.</b> Some are just quotes or images that reference something. In these cases, just answer with what you think it is referencing.</li>
+          <li>You are not going to get every reference here. If you have no idea wtf one of these questions means, just scroll to the next one.</li>
+          <li>Answers are case-insensitive. This is not true for questions with the <i>exact</i> tag.</li></li>
           <li>The program only checks if your answer <i>includes</i> the correct answer. If the answer to a question is "blue" and you answer with "it's blue", it'll get accepted. This is not true for questions with the <i>exact</i> tag.</li>
           <li>Every correct answer gives you an amount of points. The amount of points is based on how cool I think it is that you can answer that specific question with that specific answer.</li>
           <li>Some questions have multiple correct answers. For example, the answer to "What is 1+1?" could be both "2" and "two". I have tried to add every possible way of writing the correct answer to every question.</li>

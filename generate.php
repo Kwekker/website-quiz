@@ -8,8 +8,7 @@ error_reporting(E_ALL);
 include "players.php";
 
 // TODO: Maybe make it so that times.json is locked during the entire procedure so no goofy things happen.
-function generateQuestions() {
-
+function getPlayer() {
     if(isset($_POST["reset"]) && $_POST["reset"] == "true") {
         unset($_COOKIE["name"]);
         setcookie("name", "", -1);
@@ -19,11 +18,12 @@ function generateQuestions() {
     if(isset($_COOKIE["name"])) {
         $name = $_COOKIE["name"];
         if(checkName($name) != false || !file_exists("people/" .strtolower($name). ".csv")) {
-            echo "<div>Stop manually changing your cookies you nerd.";
-            echo "<form method='post'><input type='hidden' name='reset' value='true'><input type='submit' value='I didn&#39;t???'></form>";
-            echo "</div>";
+            $s = "";
+            $s .= "<div>Stop manually changing your cookies you nerd.";
+            $s .= "<form method='post'><input type='hidden' name='reset' value='true'><input type='submit' value='I didn&#39;t???'></form>";
+            $s .= "</div>";
             error_log("Weird cookie name [$name]");
-            return;
+            return $s;
         }
     }
     // Handle entered name.
@@ -33,32 +33,32 @@ function generateQuestions() {
         // Check if name is valid.
         $checkedName = checkName($name);
         if($checkedName != false) {
-            echo $checkedName;
-            printNameRequest();
+            $s = $checkedName;
+            $s .= printNameRequest();
             checkLeaderboard();
-            return;
+            return $s;
         }
 
         // Check if too many name requests.
         $times = json_decode(file_get_contents("times.json"), true);
         if($times != false && time() - $times["__GLOBAL__"] < 1) {
-            echo "<div>Too many new names at the moment. New names are rate limited to prevent bullshittery. Wait like 2 seconds and try again.";
-            echo "<br>If this problem persists, please <a href='/aboutme#contact'>tell me about it</a> or <a href='/com'>leave a comment about it</a>, thanks :).</div>";
+            $s = "<div>Too many new names at the moment. New names are rate limited to prevent bullshittery. Wait like 2 seconds and try again.";
+            $s .= "<br>If this problem persists, please <a href='/aboutme#contact'>tell me about it</a> or <a href='/com'>leave a comment about it</a>, thanks :).</div>";
             checkLeaderboard();
-            printNameRequest();
-            return;
+            $s .= printNameRequest();
+            return $s;
         }
 
         // Check if name already exists.
         if(file_exists("people/$name.csv") && !isset($_POST["thatsme"])) {
-            echo "<div>That name was already taken. If that wasn't you, please use a different name.<br><form method='POST'>";
-            echo "<input type='hidden' name='thatsme' value='true'>";
-            echo "<input type='hidden' name='name' value='$name'>";
-            echo "<input type='submit' value='Yeah, that was me.'>";
-            echo "</form></div>";
+            $s = "<div>That name was already taken. If that wasn't you, please use a different name.<br><form method='POST'>";
+            $s .= "<input type='hidden' name='thatsme' value='true'>";
+            $s .= "<input type='hidden' name='name' value='$name'>";
+            $s .= "<input type='submit' value='Yeah, that was me.'>";
+            $s .= "</form></div>";
             checkLeaderboard();
-            printNameRequest();
-            return;
+            $s .= printNameRequest();
+            return $s;
         }
 
         // Name is accepted
@@ -72,14 +72,15 @@ function generateQuestions() {
     }
     // Ask for a name.
     else {
-        printNameRequest();
         checkLeaderboard();
-        return;
+        return printNameRequest();
     }
-
     // Get user info.
-    $player = getPlayerData($name);
+    return getPlayerData($name);
+}
 
+function generateQuestions($player) {
+    $name = $player->name;
 
     // Check if this user isn't brute-forcing (very, very cringe).
     if(!isset($times)) $times = json_decode(file_get_contents("times.json"), true);
@@ -112,6 +113,7 @@ function generateQuestions() {
         $times[$name] = time();
         file_put_contents("times.json", json_encode($times), LOCK_EX);
 
+        // Sanitize answers and question IDs
         if(!ctype_alnum($_POST["question"]) || strlen($_POST["question"]) > 15) {
             echo "<div>Kindly fuck off :)</div>";
             return;
@@ -158,6 +160,8 @@ function generateQuestions() {
 }
 
 function generateQuestion($q, $player = NULL, $checkedAnswer = false, $isCorrect = false) {
+    if(isset($q->unused) && $q->unused == true) return;
+
     // Handle headers. These don't have an id and are just titles for sections.
     if(!isset($q->id)) {
         echo "<div class='heading'>$q->html</div>";
@@ -169,6 +173,14 @@ function generateQuestion($q, $player = NULL, $checkedAnswer = false, $isCorrect
     // Add 'completed' class if the user has answered all answers of this question.
     if(isset($player->answers[$q->id]) && count($player->answers[$q->id]) == count($q->points))
         echo " class='completed'";
+    else if($checkedAnswer != false) {
+        if($isCorrect == true)
+            echo " class='answered right'";
+        else if($checkedAnswer != "Nope :)")
+            echo " class='answered eh'";
+        else if($isCorrect == false)
+            echo " class='answered wrong'";
+    }
     echo ">";
 
     // Generate points list.
@@ -244,31 +256,50 @@ function checkAnswer($player, $questionId, $userAnswer) {
     // Check every pattern starting from the top to the bottom of the file.
     foreach($answers as $answer) {
         foreach($answer->pairs as $pair) {
-            foreach($pair->patterns as $pattern) {
-                // Check answer.
-                if (
-                    (!isset($pair->exact) || $pair->exact == false) && stristr($userAnswer, $pattern) 
-                    || isset($pair->exact) && $pair->exact == true && $userAnswer == $pattern
-                ) {
-                    $ret = "";
+            if(checkPair($pair, $userAnswer)) {
+                $ret = "";
 
-                    // Check if it's correct or already answered.
-                    if(
-                        $answer->correct == true 
-                        && addAnswerToPlayer($player, $questionId, $correctAnswerIndex, $answer->points)
-                    ) $ret .= "(<i>You already answered this question with this answer.</i>)<br><br>";
-                        
-                    // If it matches and it's a correct answer, store it.
-                    $ret .= $pair->response;
-                        
-                    return [$ret,$answer->correct,$correctAnswerIndex];
-                }
+                // Check if it's correct or already answered.
+                if(
+                    $answer->correct == true 
+                    && addAnswerToPlayer($player, $questionId, $correctAnswerIndex, $answer->points)
+                ) $ret .= "(<i>You already answered this question with this answer.</i>)<br><br>";
+                    
+                // If it matches and it's a correct answer, store it.
+                $ret .= $pair->response;
+                    
+                return [$ret,$answer->correct,$correctAnswerIndex];
             }
         }
         if($answer->correct) $correctAnswerIndex++;
     }
 
     return ["Nope :)",false,-1];
+}
+
+
+function checkPair($pair, $answer) {
+    // Check for the 'regex' and 'exact' flags.
+    // Idk how to use enums yet.
+    $answerType = 0;
+    if(isset($pair->regex) && $pair->regex == true) $answerType = 1;
+    else if(isset($pair->exact) && $pair->exact == true) $answerType = 2;
+    
+    foreach($pair->patterns as $pattern) {
+        switch($answerType) {
+            case 0: 
+                if (stristr($answer, $pattern)) return true;
+                break;
+            case 1: 
+                if (preg_match($pattern, $answer)) return true;
+                break;
+            case 2: 
+                if ($pattern == $answer) return true;
+                break;
+        }
+    }
+
+    return false;
 }
 
 function checkName($name) {
@@ -282,11 +313,12 @@ function checkName($name) {
 }
 
 function printNameRequest() {
-    echo "<div><form method='post'>";
-    echo "<label for='name'>Please provide a name :)</label><br>";
-    echo "<input type='text' name='name' id='name'><br>";
-    echo "<input type='submit'>";
-    echo "</form></div>";
+    $s = "<div><form method='post'>";
+    $s .= "<label for='name'>Please provide a name :)</label><br>";
+    $s .= "<input type='text' name='name' id='name'><br>";
+    $s .= "<input type='submit'>";
+    $s .= "</form></div>";
+    return $s;
 }
 
 ?>

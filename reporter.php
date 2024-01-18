@@ -65,6 +65,7 @@
   <article>
     <div class="unuglify">
       <?php if(isset($_POST["question"])): ?>
+      <h3>Reporting a question</h3>
       If you think one of the questions on my quiz page is dumb, you can tell me here! <br>
       Just give me the reason, and I'll probably change it!
       If I agree with you of course! Otherwise I won't! <br>

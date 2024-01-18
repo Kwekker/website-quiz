@@ -89,10 +89,22 @@ li {
     margin-left: 10px;
 }
 
-#questions .answered {
+/* Answered points */
+#questions > div .answered {
     text-decoration: line-through;
     font-style: italic;
     color: #444;
+}
+
+/* Answered questions */
+#questions > div.answered.wrong {
+    background-color: #ffecec;
+}
+#questions > div.answered.right {
+    background-color: #dbfff1;
+}
+#questions > div.answered.eh {
+    background-color: #ffdede;
 }
 
 #questions form hr {

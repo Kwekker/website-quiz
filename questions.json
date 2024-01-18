@@ -13,6 +13,11 @@
     "points": [5]
   },
   {
+    "id": "impedance",
+    "html": "What is the equivalent resistance of this circuit at 500Hz? (In Ohms, rounded to full Ohms.)<br><img src='img/impedance.svg' style='width:300px'>",
+    "points": [4]
+  },
+  {
     "id": "minecraft",
     "html": "Who has 'minecraft' in their name?<br>(Like \"[first name] Minecraft\".)",
     "points": [5,3]
@@ -25,11 +30,11 @@
   {
     "id": "squares",
     "html": "<p>Have some colors:</p><img src='img/squares.svg' style='height:50px;'>",
-    "points": [7]
+    "points": [6]
   },
   {
     "id": "comment",
-    "html": "The answer to this question is in a comment.<!--The answer is 'small kitties are very cute and nice and soft and cuddly' -->",
+    "html": "The answer to this question is in a comment (I don't mean my comments page btw).<!--The answer is 'small kitties are very cute and nice and soft and cuddly' -->",
     "points":[2]
   },
   {
@@ -51,6 +56,7 @@
     "points": [5]
   },
   {
+    "unused":true,
     "id":"symbol4",
     "html":"<br><img src='img/symbol4.svg'>",
     "points":[4]
@@ -66,11 +72,6 @@
     "points": [3]
   },
   {
-    "id": "impedance",
-    "html": "What is the equivalent impedance of this circuit at 500Hz? (In Ohms, rounded to full Ohms.)<br><img src='img/impedance.svg' style='width:300px'>",
-    "points": [4]
-  },
-  {
     "id": "soundcloud",
     "html": "My comment on <a class='hidingnext' href='https://soundcloud.com/rustyk-music/orphan'>this track</a><div style='font-size:15px'>Now, you could obviously explore my SoundCloud account with ease, given this link. However, please refrain from doing so, as that shit is cringe af.</div>",
     "points": [4]
@@ -82,13 +83,13 @@
   },
   {
     "id": "sideways",
-    "html": "Which lashing did these cats use?<br><img src='img/sideways_cat.jpg'>  <img src='img/sideways_cat2.jpg'>",
+    "html": "Which lashing did these cats use?<br><img src='img/sideways_cat.jpg'>  <img src='img/sideways_cat2.jpg' style='object-fit:cover;object-position:top left;width:295px;height:300px;'>",
     "points": [5]
   },
   {
     "id": "audio1",
     "html": "What is this?<br><audio controls><source src='img/audio1.mp3' type='audio/mpeg'>Your browser is cringe.</audio><!--I most definitely do not have the rights to this, but I'm not earning any money with this site so it might be fine maybe possibly???\nAlso fuck off stop snooping in the html you little Worm-->",
-    "points": [5]
+    "points": [4]
   },
   {
     "id": "one",
@@ -97,12 +98,12 @@
   },
   {
     "id": "console1",
-    "html": "What is this?<br><img src='img/console1.png'>",
+    "html": "What is this a screenshot of?<br><img src='img/console1.png'>",
     "points": [2]
   },
   {
     "id": "console2",
-    "html": "And what is this?<br><img src='img/console2.png'>",
+    "html": "And what is this a screenshot of?<br><img src='img/console2.png'>",
     "points": [3]
   },
   {
@@ -139,5 +140,25 @@
     "id":"food1",
     "html":"What are we having?<br><img src='img/food1.jpg'>",
     "points":[3]
+  },
+  {
+    "id":"symbols",
+    "html":"<img class='hidingnext' src='img/symbols.png' style='object-fit:none;object-position:top left;width:442px;'><div>(Read the answering details point 2)</div>",
+    "points":[4,1]
+  },
+  {
+    "id":"audio2",
+    "html":"What is this?<br><audio controls><source src='img/audio2.mp3' type='audio/mpeg'>Your browser is cringe.</audio>",
+    "points":[3]
+  },
+  {
+    "id":"texture",
+    "html":"I did a Minecraft armor stand texture on the <a href='#sideways'>sideways cat question</a>.",
+    "points":[3]
+  },
+  {
+    "id":"where",
+    "html":"Where are the what come from?",
+    "points":[4]
   }
 ]
