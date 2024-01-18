@@ -36,7 +36,7 @@
     <a href="/" class="button">Main menu</a>
     <br><br>
 
-    <h2 style="width:90%;margin-left: 5%;"> 
+    <h2> 
       A quiz with really obscure questions
     </h2>
     <?php 

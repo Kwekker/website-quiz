@@ -83,7 +83,7 @@
   },
   {
     "id": "sideways",
-    "html": "Which lashing did these cats use?<br><img src='img/sideways_cat.jpg'>  <img src='img/sideways_cat2.jpg' style='object-fit:cover;object-position:top left;width:295px;height:300px;'>",
+    "html": "Which lashing did these cats use?<br><img src='img/sideways_cat.jpg'><span style='display:inline-block;overflow:hidden;'><img src='img/sideways_cat2.jpg'></span>",
     "points": [5]
   },
   {
@@ -143,7 +143,7 @@
   },
   {
     "id":"symbols",
-    "html":"<img class='hidingnext' src='img/symbols.png' style='object-fit:none;object-position:top left;width:442px;'><div>(Read the answering details point 2)</div>",
+    "html":"<img class='hidingnext' src='img/symbols_new.png'><div>(Read the answering details point 2)</div>",
     "points":[4,1]
   },
   {
@@ -152,6 +152,7 @@
     "points":[3]
   },
   {
+    "unused":true,
     "id":"texture",
     "html":"I did a Minecraft armor stand texture on the <a href='#sideways'>sideways cat question</a>.",
     "points":[3]

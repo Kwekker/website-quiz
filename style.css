@@ -210,11 +210,33 @@ li {
     }
 }
 
+@media only screen and (max-width: 380px) {
+    #questions .dumb {
+        float: none;
+        position: static;
+    }
+
+    .dumb > input[type=submit] {
+        font-size: 10px;
+    }
+
+    #questions > div > form > input[type=text] {
+        width: 100%;
+    }
+}
 
 /* Phones (cringe) */
 @media only screen and (max-width: 630px) {
     input[type=submit] {
-        font-size:15px;
+        font-size:13px;
+    }
+
+    #questions > div > form > input[type=text] {
+        margin-left: 0px;
+    }
+
+    #questions {
+        word-wrap: break-word;
     }
 
     #questions .points {
@@ -229,6 +251,44 @@ li {
     #questions > div:not(.heading) {
         min-width: 100px;
     }
+
+    /* Put leaderboard on top of eachother */
+    .leaderboard {
+        font-size: 30px;
+    }
+
+    .leaderboard > .top {
+        width: 95%;
+    }
+
+    /* .leaderboard b:nth-child(1) {
+        float: left;
+        padding: 0 8px;
+    }
+    
+    .leaderboard b:nth-child(2) {
+        float: right;
+        padding: 0 8px;
+        font-weight: normal;
+    } */
+
+    .leaderboard .notop span {
+        width: 95%;
+        margin-bottom: 6px;
+        border: 3px black solid;
+        display: inline-block;
+        background-color: var(--lessButton);
+    }
+
+    audio {
+        width: 100%;
+    }
+
+    #questions img {
+        width: 100%;
+        max-height: unset;
+    }
+
 
 
 }
