@@ -30,11 +30,11 @@
   {
     "id": "squares",
     "html": "<p>Have some colors:</p><img src='img/squares.svg' style='height:50px;'>",
-    "points": [6]
+    "points": [7]
   },
   {
     "id": "comment",
-    "html": "The answer to this question is in a comment (I don't mean my comments page btw).<!--The answer is 'small kitties are very cute and nice and soft and cuddly' -->",
+    "html": "The answer to this question is commented out.<!--The answer is 'small kitties are very cute and nice and soft and cuddly' -->",
     "points":[2]
   },
   {
@@ -73,7 +73,7 @@
   },
   {
     "id": "soundcloud",
-    "html": "My comment on <a class='hidingnext' href='https://soundcloud.com/rustyk-music/orphan'>this track</a><div style='font-size:15px'>Now, you could obviously explore my SoundCloud account with ease, given this link. However, please refrain from doing so, as that shit is cringe af.</div>",
+    "html": "<span class='hidingnext'>What is my comment on <a href='https://soundcloud.com/rustyk-music/orphan'>this track</a> referencing?</span><div style='font-size:15px'>Now, you could obviously explore my SoundCloud account with ease, given this link. However, please refrain from doing so, as that shit is cringe af.</div>",
     "points": [4]
   },
   {
@@ -83,7 +83,7 @@
   },
   {
     "id": "sideways",
-    "html": "Which lashing did these cats use?<br><img src='img/sideways_cat.jpg'><span style='display:inline-block;overflow:hidden;'><img src='img/sideways_cat2.jpg'></span>",
+    "html": "Which lashing did these cats use?<br><img src='img/sideways_cat.jpg'><img src='img/sideways_cat2.jpg'>",
     "points": [5]
   },
   {
@@ -159,7 +159,7 @@
   },
   {
     "id":"where",
-    "html":"Where are the what come from?",
+    "html":"Where are the ... come from?<br><img src='img/where.gif'>",
     "points":[4]
   }
 ]
