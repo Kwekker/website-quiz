@@ -1,7 +1,6 @@
 <?php 
   include "generate.php";
   if(headers_sent()) echo "fuck!!";
-?><?php
   $player = getPlayer(); 
 ?>
 
@@ -11,13 +10,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="A quiz with questions and obscure references nobody will get.">
-  <meta property="og:title" content="Jochem's connect 4 thing"/>
+  <meta property="og:title" content="Jochem's quiz"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://jochemleijenhorst.com"/>
+  <meta property="og:url" content="https://jochemleijenhorst.com/quiz"/>
+  <meta property="og:image" content="https://jochemleijenhorst.com/quiz/thumbnail.png"/>
   <meta property="og:site_name" content="jochemleijenhorst.com"/>
-  <meta property="og:description" content="You can play connect 4 against other jochemleijenhorst.com fans!!"/>
+  <meta property="og:description" content="You can do a cool quiz :)"/>
   <title>Jochem's quiz</title>
-  <link rel="stylesheet" href="/main.css" type="text/css">
+  <link rel="stylesheet" href="/main.css?r" type="text/css">
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="icon" href="../pictures/gewoon een eend.png" type="image/gif">
 
@@ -92,15 +92,16 @@
       The person with the most points gets to be on the <a href="/" class="hidingnext fakelink">home page</a>!!!
       <div class="textBlock">
         This could be you! <br>
-        <img src="img/advertisement.png" alt="An image of my homepage with the text “henry is incredibly cool because they're in first place on the quiz leaderboard."><br>
+        <img src="img/advertisement.png" alt="An image of my homepage with the text “henry is incredibly cool because they're in first place on the quiz leaderboard.”"><br>
         (Please imagine your name is Henry when viewing this image)
       </div>
       <span><details>
         <!-- The details tag is an amazing addition to html I love it. -->
         <summary>A few details about answering (if you care):</summary>
         <ul>
-          <li>All answers are logged for my personal enjoyment, so don't put your credit card information in them.</li>
+          <li>All answers are logged for my personal enjoyment, as well as improving the answer responses, so don't put your credit card information in them.</li>
           <li><b>Not every 'question' is actually a question.</b> Some are just quotes or images that reference something. In these cases, just answer with what you think it is referencing.</li>
+          <li>You can only answer 1 question at a time.</li>
           <li>You are not going to get every reference here. If you have no idea wtf one of these questions means, just scroll to the next one.</li>
           <li>Answers are case-insensitive. This is not true for questions with the <i>exact</i> tag.</li></li>
           <li>The program only checks if your answer <i>includes</i> the correct answer. If the answer to a question is "blue" and you answer with "it's blue", it'll get accepted. This is not true for questions with the <i>exact</i> tag.</li>
@@ -114,7 +115,7 @@
         You can google <i>how</i> to answer the questions of course, like for example looking up Ohm's Law is completely fine. However, looking up the exact words I used in my questions to find out what they're about or what they're referencing is kind of cringe.
       <p> <!--No closer needed. The p element is just chill like that-->
         I'll probably update the questions regularly, when I come up with/find the time to make more.<br>
-        The last update to the questions was at
+        The last update to the questions was on
         <?php echo date("d M Y", filemtime("questions.json"));?>.
       <p>
         If you don't like one of the questions, you can press the <a href="/experiments/comments?but"><button>This question is dumb</button></a> button. You can then tell me why you don't like the question, and I might change it :).

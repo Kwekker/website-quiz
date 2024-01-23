@@ -5,7 +5,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include "players.php";
+require "players.php";
+require_once "../notifs.php";
 
 // TODO: Maybe make it so that times.json is locked during the entire procedure so no goofy things happen.
 function getPlayer() {
@@ -62,13 +63,14 @@ function getPlayer() {
         }
 
         // Name is accepted
-        if($times != false) {
+        if($times != false) { // Check if file_get_contents didn't fucking die (possible)
             $times["__GLOBAL__"] = time();
             // Initialize name to 0 to make sure it's in the times.json file but it doesn't get flagged as a brute-forcer.
             $times[$name] = 0;
             file_put_contents("times.json", json_encode($times), LOCK_EX);
         }
         setcookie("name", $name);
+        sendNotif("$name is participating", "On the Quiz page!!", "quiz");
     }
     // Ask for a name.
     else {
@@ -277,24 +279,26 @@ function checkAnswer($player, $questionId, $userAnswer) {
     return ["Nope :)",false,-1];
 }
 
-
-function checkPair($pair, $answer) {
+function checkPair($pair, $userAnswer) {
     // Check for the 'regex' and 'exact' flags.
     // Idk how to use enums yet.
     $answerType = 0;
     if(isset($pair->regex) && $pair->regex == true) $answerType = 1;
     else if(isset($pair->exact) && $pair->exact == true) $answerType = 2;
+
+    // Deal with dumb quotation
+    $userAnswer = preg_replace("/[‘’`´]/u", "'", $userAnswer);
     
     foreach($pair->patterns as $pattern) {
         switch($answerType) {
             case 0: 
-                if (stristr($answer, $pattern)) return true;
+                if (stristr($userAnswer, $pattern)) return true;
                 break;
             case 1: 
-                if (preg_match($pattern, $answer)) return true;
+                if (preg_match($pattern, $userAnswer)) return true;
                 break;
             case 2: 
-                if ($pattern == $answer) return true;
+                if ($pattern == $userAnswer) return true;
                 break;
         }
     }

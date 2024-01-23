@@ -1,8 +1,9 @@
 <?php
+  require_once "generate.php";
+
   ini_set('error_log', "err.log");
-  ini_set('display_errors', 1);
-  ini_set('display_startup_errors', 1);
   error_reporting(E_ALL);
+
 
   if(isset($_POST["question"]) && (isset($_POST["reason"]) || isset($_POST["typedReason"]))) {
     if(!file_exists("answers/" .$_POST["question"]. ".json")) {
@@ -25,6 +26,7 @@
     $typedReason = str_replace("\n","\n\t", $typedReason);
     
     $newLine = time() .",$name,". $_POST["question"] .",$reason:\n\t$typedReason\n";
+    sendNotif($_POST["question"] . " reported for " . $reason, "By $name", "/quiz");
 
     file_put_contents("reports.log", $newLine, LOCK_EX | FILE_APPEND);
 
@@ -74,7 +76,6 @@
       You have accused the following question of being dumb:
       <div id="questions">
         <?php
-          require "generate.php";
 
           // Now that I think about it, questions in questions.json should really be keyed by their ID shouldn't they?
           // Anyway..
