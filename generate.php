@@ -249,9 +249,7 @@ function generateAnswers($player, $question) {
 }
 
 function checkAnswer($player, $questionId, $userAnswer) {
-    $ansFile = fopen("answers/$questionId.json", "r");
-    $answers = json_decode(fread($ansFile, 2000));
-    fclose($ansFile);
+    $answers = json_decode(file_get_contents("answers/$questionId.json"));
 
     $correctAnswerIndex = 0;
     // Prepare for nested bullshit.
