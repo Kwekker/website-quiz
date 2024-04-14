@@ -25,7 +25,7 @@
     $typedReason = isset($_POST["typedReason"]) ? $_POST["typedReason"] : "none";
     $typedReason = str_replace("\n","\n\t", $typedReason);
     
-    $newLine = time() .",$name,". $_POST["question"] .",$reason:\n\t$typedReason\n";
+    $newLine = date("d M y H:i:s") .",$name,". $_POST["question"] .",$reason:\n\t$typedReason\n";
     sendNotif($_POST["question"] . " reported for " . $reason, "By $name", "/quiz");
 
     file_put_contents("reports.log", $newLine, LOCK_EX | FILE_APPEND);

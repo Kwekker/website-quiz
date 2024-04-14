@@ -1,7 +1,7 @@
-<?php 
+<?php
   include "generate.php";
   if(headers_sent()) echo "fuck!!";
-  $player = getPlayer(); 
+  $player = getPlayer();
 ?>
 
 <!DOCTYPE html>
@@ -36,10 +36,10 @@
     <a href="/" class="button">Main menu</a>
     <br><br>
 
-    <h2> 
+    <h2>
       A quiz with really obscure questions
     </h2>
-    <?php 
+    <?php
       if(is_string($player)) {
         $questionHTML = $player;
       }
@@ -75,13 +75,13 @@
     <div style="font-size:20px;text-align:center;">There will be a leaderboard here when there are enough players for that.</div>
     <br>
     <?php endif; ?>
-    
+
   </article>
 
   <article>
     <div class="unuglify">
 
-      <?php 
+      <?php
         if(isset($_GET["fb"])) echo "<h2>Thank you for the feedback!</h2>";
         else if(isset($_GET["bfb"])) echo "<h2>Something went wrong while adding your feedback! Sorry lol!</h2>"
       ?>
@@ -103,13 +103,13 @@
           <li><b>Not every 'question' is actually a question.</b> Some are just quotes or images that reference something. In these cases, just answer with what you think it is referencing.</li>
           <li>You can only answer 1 question at a time.</li>
           <li>You are not going to get every reference here. If you have no idea wtf one of these questions means, just scroll to the next one.</li>
-          <li>Answers are case-insensitive. This is not true for questions with the <i>exact</i> tag.</li></li>
+          <li>Answers are case-insensitive. This is not true for questions with the <i>exact</i> tag.</li>
           <li>The program only checks if your answer <i>includes</i> the correct answer. If the answer to a question is "blue" and you answer with "it's blue", it'll get accepted. This is not true for questions with the <i>exact</i> tag.</li>
           <li>Every correct answer gives you an amount of points. The amount of points is based on how cool I think it is that you can answer that specific question with that specific answer.</li>
           <li>Some questions have multiple correct answers. For example, the answer to "What is 1+1?" could be both "2" and "two". I have tried to add every possible way of writing the correct answer to every question.</li>
         </ul>
       </details></span>
-      
+
       <p>
         I have tried to keep the questions as ungoogleable as possible, but still please just don't try.
         You can google <i>how</i> to answer the questions of course, like for example looking up Ohm's Law is completely fine. However, looking up the exact words I used in my questions to find out what they're about or what they're referencing is kind of cringe.
@@ -128,6 +128,6 @@
       <?php echo $questionHTML; ?>
     </div>
   </article>
-  
+
 </body>
 </html>

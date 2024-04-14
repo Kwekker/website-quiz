@@ -10,7 +10,7 @@ require_once "../notifs.php";
 
 // TODO: Maybe make it so that times.json is locked during the entire procedure so no goofy things happen.
 function getPlayer() {
-    if(isset($_POST["reset"]) && $_POST["reset"] == "true") {
+    if(isset($_POST["reset"]) && $_POST["reset"] == "true" || isset($_GET["reset"]) && $_GET["reset"] == "true") {
         unset($_COOKIE["name"]);
         setcookie("name", "", -1);
     }
