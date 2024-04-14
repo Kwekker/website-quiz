@@ -53,7 +53,15 @@ if($problems > 0) {
     echo $problemText;
     echo "<br>Other than that everything seems good!";
 }
-else echo "Everything seems completely and utterly fine :)";
+else echo "Everything seems completely and utterly fine :)<br><br>";
 
+
+$answerFiles = scandir("answers", 0, );
+foreach($answerFiles as $fileName) {
+    if($fileName[0] == '.' || $fileName == "freepoints.json") continue;
+    if((fileperms("answers/$fileName") & 0xfff) != 0o0600) {
+        echo "Answer file $fileName has <b>wrong permissions</b>!!<br>";
+    }
+}
 
 ?>
