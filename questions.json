@@ -34,7 +34,7 @@
   },
   {
     "id": "comment",
-    "html": "The answer to this question is commented out.<!--The answer is 'small kitties are very cute and nice and soft and cuddly' -->",
+    "html": "The answer to this question has been commented out.<!--The answer is 'small kitties are very cute and nice and soft and cuddly' -->",
     "points":[2]
   },
   {
@@ -118,7 +118,7 @@
   },
   {
     "id":"before",
-    "html":"What was on this page (jochemleijenhorst.com/quiz) before this quiz was on it?",
+    "html":"What was on this page (jochemleijenhorst.com/quiz) before this quiz was on it?<br>(Hint: anyone should is able to answer this)",
     "points":[3]
   },
   {
@@ -161,5 +161,10 @@
     "id":"where",
     "html":"Where are the ... come from?<br><img src='img/where.gif'>",
     "points":[4]
+  },
+  {
+    "id":"symbols2",
+    "html":"Give me the shortest possible code to make this (you don't need the $'s):<br>This question is <i>exact</i>.<br><img src='img/symbols2.svg'><br><br>Or tell me what it's used for (not exact).",
+    "points":[4,2]
   }
 ]
