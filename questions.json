@@ -1,6 +1,6 @@
 [
   {
-    "html": "<h3>The questions</h3>These aren't really in any order"
+    "html": "<h3>The questions</h3>You can only answer 1 at a time."
   },
   {
     "id": "taylor",
@@ -29,7 +29,7 @@
   },
   {
     "id": "squares",
-    "html": "<p>Have some colors:</p><img src='img/squares.svg' style='height:50px;'>",
+    "html": "<p>Have some colors:</p><img src='img/squares.gif'>",
     "points": [7]
   },
   {
@@ -74,7 +74,7 @@
   {
     "id": "soundcloud",
     "html": "<span class='hidingnext'>What is my comment on <a href='https://soundcloud.com/rustyk-music/orphan'>this track</a> referencing?</span><div style='font-size:15px'>Now, you could obviously explore my SoundCloud account with ease, given this link. However, please refrain from doing so, as that shit is cringe af.</div>",
-    "points": [4]
+    "points": [5]
   },
   {
     "id": "what",
@@ -85,6 +85,9 @@
     "id": "sideways",
     "html": "Which lashing did these cats use?<br><img src='img/sideways_cat.jpg'><img src='img/sideways_cat2.jpg'>",
     "points": [5]
+  },
+  {
+    "html": "<h3>Time for some tracks</h3>The next few questions will literally just be very small pieces of songs I like. Answer with the title or the artist."
   },
   {
     "id": "audio1",
@@ -108,7 +111,7 @@
   },
   {
     "id":"directory",
-    "html":"Give me a command line command that puts a detailed list of the current directory (including permissions and file sizes) into a file named \"dumb_shit.txt\".<br>Make the command as short as possible.<br>This question is <i>exact</i>.",
+    "html":"Give me a command line command that puts a detailed list of the current directory (including permissions and file sizes) into a file named \"dumb_shit.txt\", non recursively. The list may not include hidden files.<br>Make the command as short as possible.<br>This question is <i>exact</i>.",
     "points":[3]
   },
   {
@@ -118,13 +121,8 @@
   },
   {
     "id":"before",
-    "html":"What was on this page (jochemleijenhorst.com/quiz) before this quiz was on it?<br>(Hint: anyone should is able to answer this)",
+    "html":"What was on this page (jochemleijenhorst.com/quiz) before this quiz was on it?<br>(Hint: anyone should be able to answer this)",
     "points":[3]
-  },
-  {
-    "id":"fox",
-    "html":"What did I mean with \"I did a Toby Fox\" in the answer response on the previous question? Name the website.<br>(If you didn't get that question, too bad lmao)",
-    "points":[5]
   },
   {
     "id":"gif1",
@@ -133,7 +131,7 @@
   },
   {
     "id":"code1",
-    "html":"Below is a very readable and well-commented C program. You can view the code here, or, if you prefer, you can copy&paste/download it from <a href='img/code1.c'>here</a> to look at it in your favorite code editor. <span class='hidingnext'>Slight warning though: severe outbursts of anger, frustration and/or headaches are not uncommon when viewing this code</span>. <small>Looking at it hurts my eyes :(</small> <details><summary>The code</summary><iframe src='img/code1.html'></iframe></details><br>Provide the shortest possible input that will output \"catduckcat\". Good luck :)<br>This question is <i>exact</i>.",
+    "html":"Below is a very readable and well-commented C program. You can view the code here, or, if you prefer, you can copy&paste/download it from <a href='img/code1.c'>here</a> to look at it in your favorite code editor. You can also go <a href='img/code1.html'>here</a> to view it with syntax highlighting. <span class='hidingnext'>Slight warning though: severe outbursts of anger, frustration and/or headaches are not uncommon when viewing this code</span>. <small>Looking at it hurts my eyes :(</small> <details><summary>The code</summary><iframe src='img/code1.html'></iframe></details><br>Provide the shortest possible input that will output \"catduckcat\". Good luck :)<br>This question is <i>exact</i>.",
     "points":[7]
   },
   {
@@ -160,7 +158,7 @@
   {
     "id":"where",
     "html":"Where are the ... come from?<br><img src='img/where.gif'>",
-    "points":[4]
+    "points":[6]
   },
   {
     "id":"symbols2",
