@@ -14,7 +14,7 @@ function getPlayer() {
         unset($_COOKIE["name"]);
         setcookie("name", "", -1);
     }
-    
+
     // Handle name already set.
     if(isset($_COOKIE["name"])) {
         $name = $_COOKIE["name"];
@@ -69,7 +69,7 @@ function getPlayer() {
             $times[$name] = 0;
             file_put_contents("times.json", json_encode($times), LOCK_EX);
         }
-        setcookie("name", $name);
+        setcookie("name", $name, time() + 157680000);
         sendNotif("$name is participating", "On the Quiz page!!", "quiz");
     }
     // Ask for a name.
@@ -96,7 +96,7 @@ function generateQuestions($player) {
     else if(time() - $times[$name] < 1 || isset($_GET["bruteforce"])) {
         echo "<div>Ok yeah no you are answering questions WAY too fast. You're getting an 8 second timeout. Please relax.<br>";
         echo "<span style='font-size:0px;'>Also you can bet your silly ass this is getting logged you nerd.</span><br>";
-        echo "Still waiting.. <a href='.' class='button sec8'>Back to the questions</a></div>";
+        echo "Still waiting.. <br><a href='.' class='button sec8'>Back to the questions</a></div>";
 
         // Log the time except way larger for a time-out.
         $times[$name] = time() + 8;
@@ -124,13 +124,13 @@ function generateQuestions($player) {
             $checkedAnswer = "Your answer is either too long or cringe.";
         }
         else {
-            
+
             [$checkedAnswer,$isCorrect,$answerIndex] = checkAnswer($player, $_POST["question"], $_POST["answer"]);
-            
+
             // Log answer.
             $correctText = $isCorrect ? "CORRECT:$answerIndex" : "WRONG";
-            
-            file_put_contents("allAnswers.csv", 
+
+            file_put_contents("allAnswers.csv",
                 date("d M y H:i:s") . ",$player->name," .$_POST["question"]. ",$correctText,\"" .$_POST["answer"]. "\"\n",
                 FILE_APPEND | LOCK_EX
             );
@@ -155,9 +155,9 @@ function generateQuestions($player) {
     foreach($questions as $question) {
         if($checkedAnswer != false && isset($question->id) && $_POST["question"] == $question->id)
             generateQuestion($question, $player, $checkedAnswer, $isCorrect);
-        else 
+        else
             generateQuestion($question, $player);
-            
+
     }
 }
 
@@ -204,7 +204,7 @@ function generateQuestion($q, $player = NULL, $checkedAnswer = false, $isCorrect
     // Check the answer and provide a response if there is one.
     if($checkedAnswer != false) {
         echo "<br><br><hr><br><b>You answered:</b> " . htmlspecialchars($_POST["answer"]);
-        echo "<br><br>$checkedAnswer";
+        echo "<br><p class='response'>$checkedAnswer</p>";
         // Add win animation elements.
         if($isCorrect) echo "<div class='yippee'></div><div class='yippee alt'></div>";
     }
@@ -216,7 +216,7 @@ function generateAnswers($player, $question) {
 
     // Count the amount of point values the question has in questions.json.
     $answerCount = count($question->points);
-    
+
     // Singular answer questions:
     if($answerCount == 1) {
         echo "<b>Answer: </b><div";
@@ -227,7 +227,7 @@ function generateAnswers($player, $question) {
         echo ">" . $question->points[0] . " point";
 
         // Pluralize 'point' if necessary.
-        if($question->points[0] > 1) echo "s"; 
+        if($question->points[0] > 1) echo "s";
 
         echo ".</div>";
     }
@@ -261,13 +261,13 @@ function checkAnswer($player, $questionId, $userAnswer) {
 
                 // Check if it's correct or already answered.
                 if(
-                    $answer->correct == true 
+                    $answer->correct == true
                     && addAnswerToPlayer($player, $questionId, $correctAnswerIndex, $answer->points)
                 ) $ret .= "(<i>You already answered this question with this answer.</i>)<br><br>";
-                    
+
                 // If it matches and it's a correct answer, store it.
                 $ret .= $pair->response;
-                    
+
                 return [$ret,$answer->correct,$correctAnswerIndex];
             }
         }
@@ -286,16 +286,16 @@ function checkPair($pair, $userAnswer) {
 
     // Deal with dumb quotation
     $userAnswer = preg_replace("/[‘’`´]/u", "'", $userAnswer);
-    
+
     foreach($pair->patterns as $pattern) {
         switch($answerType) {
-            case 0: 
+            case 0:
                 if (stristr($userAnswer, $pattern)) return true;
                 break;
-            case 1: 
+            case 1:
                 if (preg_match($pattern, $userAnswer)) return true;
                 break;
-            case 2: 
+            case 2:
                 if ($pattern == $userAnswer) return true;
                 break;
         }
