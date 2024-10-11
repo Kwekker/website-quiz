@@ -10,9 +10,10 @@ require_once "../notifs.php";
 
 // TODO: Maybe make it so that times.json is locked during the entire procedure so no goofy things happen.
 function getPlayer() {
-    if(isset($_POST["reset"]) && $_POST["reset"] == "true" || isset($_GET["reset"]) && $_GET["reset"] == "true") {
+    if(isset($_POST["reset"]) && $_POST["reset"] == "true") {
         unset($_COOKIE["name"]);
         setcookie("name", "", -1);
+        $_POST["reset"] = "false";
     }
 
     // Handle name already set.
@@ -144,7 +145,10 @@ function generateQuestions($player) {
 
     // Generate user info thingy.
     echo "<div>";
-    echo "Hello <b>$name</b>.<br>You currently have <b>$player->points</b> points, from <b>$player->answerCount</b> correct answers. This puts you in position <b>$player->rank</b> on the leaderboard.";
+    echo "Hello <b>$name</b>. ";
+    // Add logout button.
+    echo "<form action='' method='post' style='display:inline'><input type='hidden' name='reset' value='true'><input type='submit' value='Log out'></form>";
+    echo "<br>You currently have <b>$player->points</b> points, from <b>$player->answerCount</b> correct answers. This puts you in position <b>$player->rank</b> on the leaderboard.";
     if($player->rank == 1) echo " Congrats :).";
     echo "</div><br>";
 
