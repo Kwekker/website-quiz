@@ -348,6 +348,7 @@ function printFullLeaderboard($leaderboard) {
         // Keep track of ties.
         $realPos++;
         if ($prevPoints != $entry->points) $leaderboardPos = $realPos;
+        if ($entry->points == 0) break;
 
         echo "<tr><td>$leaderboardPos</td>";
         echo "<td>$entry->name</td>";
