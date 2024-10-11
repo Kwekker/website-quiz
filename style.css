@@ -57,6 +57,10 @@ li {
     margin-left: 50px;
 }
 
+#questions .response {
+    background-color: var(--brighterBlue);
+}
+
 .points b {
     position: relative;
     right: 30px;
