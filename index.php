@@ -107,6 +107,7 @@
           <li>The program only checks if your answer <i>includes</i> the correct answer. If the answer to a question is "blue" and you answer with "it's blue", it'll get accepted. This is not true for questions with the <i>exact</i> tag.</li>
           <li>Every correct answer gives you an amount of points. The amount of points is based on how cool I think it is that you can answer that specific question with that specific answer.</li>
           <li>Some questions have multiple correct answers. For example, the answer to "What is 1+1?" could be both "2" and "two". I have tried to add every possible way of writing the correct answer to every question.</li>
+          <li>Some questions have multiple correct answers that give a separate amount of points. For example, The answer to "What is x in x^2=x could be both 1 and -1. The amount of separate correct answers is shown in the top right of the question, or the bottom left on mobile.</li>
         </ul>
       </details></span>
 
