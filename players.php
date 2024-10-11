@@ -40,21 +40,23 @@ function getPlayerData($name) {
 
     return (object) array(
         'name' => $name,
-        'file' => $file, 
-        'answerCount' => $answerCount, 
-        'answers' => $answers, 
-        'points' => $points, 
+        'file' => $file,
+        'answerCount' => $answerCount,
+        'answers' => $answers,
+        'points' => $points,
         'rank' => $rank,
     );
 }
 
+// Returns true when the player has already answered this before.
 function addAnswerToPlayer($player, $questionId, $answerIndex, $points) {
-    
+    if($player->name == "tester") return false;
+
     // Check if answer has been answered before.
     if(isset($player->answers[$questionId])) {
         if(in_array($answerIndex, $player->answers[$questionId]))
             return true;
-        else 
+        else
             array_push($player->answers[$questionId], $answerIndex);
     }
     else $player->answers[$questionId] = [$answerIndex];
@@ -87,7 +89,7 @@ function updateLeaderboardPosition($player) {
     $newIndex = -1;
     while($oldIndex < $leaderboardLength && $leaderboard[$oldIndex]->name != $player->name) {
         // Check for the new index while we're at it.
-        if($newIndex < 0 && $leaderboard[$oldIndex]->points <= $player->points) 
+        if($newIndex < 0 && $leaderboard[$oldIndex]->points <= $player->points)
             $newIndex = $oldIndex;
         $oldIndex++;
     }
@@ -102,7 +104,7 @@ function updateLeaderboardPosition($player) {
     // Move this player up if they just gained more points than the people above them.
     if($oldIndex != $newIndex) {
         // Remove old entry.
-        array_splice($leaderboard, $oldIndex, 1); 
+        array_splice($leaderboard, $oldIndex, 1);
         // Move the new index if necessary.
         if($newIndex > $oldIndex) $newIndex--;
         // Add new entry.
@@ -113,7 +115,7 @@ function updateLeaderboardPosition($player) {
     // Find this player's rank.
     while($newIndex >= 0 && $leaderboard[$newIndex]->points == $player->points) $newIndex--;
     $player->rank = $newIndex + 2;
-    
+
     // Write the new array into the file.
     fseek($file, 0);
     fwrite($file, json_encode($leaderboard));
