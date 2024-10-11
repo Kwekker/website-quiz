@@ -150,7 +150,16 @@ function generateQuestions($player) {
     echo "<form action='' method='post' style='display:inline'><input type='hidden' name='reset' value='true'><input type='submit' value='Log out'></form>";
     echo "<br>You currently have <b>$player->points</b> points, from <b>$player->answerCount</b> correct answers. This puts you in position <b>$player->rank</b> on the leaderboard.";
     if($player->rank == 1) echo " Congrats :).";
+
+    // Generate "show full leaderboard" button.
+    echo "<br><form action='#fullLeaderBoard' method='post' style='display:inline'><input type='hidden' name='showFullLeaderboard' value='true'><input type='submit' value='Show full leaderboard'></form>";
+
     echo "</div><br>";
+
+    if(isset($_POST["showFullLeaderboard"]) && $_POST["showFullLeaderboard"] == "true") {
+        global $leaderboard;
+        printFullLeaderboard($leaderboard);
+    }
 
     // Parse question file.
     $questions = json_decode(file_get_contents("questions.json"));
@@ -325,6 +334,26 @@ function printNameRequest() {
     $s .= "<input type='submit'>";
     $s .= "</form></div>";
     return $s;
+}
+
+function printFullLeaderboard($leaderboard) {
+    echo "<div class='fullLeaderboard' id='fullLeaderBoard'>";
+    echo "<h3>The full leaderboard</h3>Just for you<br><br>";
+    echo "<div><table>";
+    $realPos = 0;
+    $leaderboardPos = 0;
+    $prevPoints = 0;
+
+    foreach($leaderboard as $entry) {
+        // Keep track of ties.
+        $realPos++;
+        if ($prevPoints != $entry->points) $leaderboardPos = $realPos;
+
+        echo "<tr><td>$leaderboardPos</td>";
+        echo "<td>$entry->name</td>";
+        echo "<td>$entry->points</td></tr>";
+    }
+    echo "</table></div></div>";
 }
 
 ?>

@@ -151,6 +151,41 @@ li {
     background-color: var(--lessButton);
 }
 
+#questions > .fullLeaderboard {
+    text-align: center;
+}
+
+#questions > .fullLeaderboard h3 {
+    margin:5px 0;
+}
+
+#questions > .fullLeaderboard > div {
+    width: 75%;
+    max-height: 372px;
+    overflow-y: scroll;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+
+    border: #222 2px solid;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;;
+}
+
+#questions > .fullLeaderboard table {
+    background-color: white;
+    width: 100%;
+}
+
+#questions > .fullLeaderboard tr:nth-child(even) {
+    background-color: #9cedff;
+}
+
+#questions > .fullLeaderboard tr:nth-child(odd) {
+    background-color: var(--button);
+}
+
+
 .yippee {
     display: inline-block;
     position: absolute;
@@ -231,6 +266,11 @@ li {
 
 /* Phones (cringe) */
 @media only screen and (max-width: 630px) {
+
+    #questions > .fullLeaderboard > div {
+        width: fit-content;
+    }
+
     input[type=submit] {
         font-size:13px;
     }
