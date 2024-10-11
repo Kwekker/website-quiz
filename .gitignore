@@ -26,3 +26,7 @@ dumbquestion.php
 
 # Error logging file
 err.log
+
+# Include as few as possible question specific files.
+# If you want this file, send me an email or something.
+getQuestion.php
