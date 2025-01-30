@@ -60,9 +60,19 @@
     "points":[4]
   },
   {
+    "id":"screenshot",
+    "html":"What is this a screenshot of?<br><img src='img/screenshot2.png'>",
+    "points":[4]
+  },
+  {
     "id": "animal",
     "html": "What is this?<br><img src='/aboutme/cat.jpg' alt='It's a cat'>",
     "points": [3]
+  },
+  {
+    "id": "creature",
+    "html": "What is the name of the creature on my lamp?<br><img src='img/creature.jpg' alt='A plush creature situated on top of my desk lamp'>",
+    "points": [5,1]
   },
   {
     "id": "GET",
@@ -81,7 +91,7 @@
   },
   {
     "id": "sideways",
-    "html": "Which lashing did these cats use?<br><img src='img/sideways_cat.jpg'><img src='img/sideways_cat2.jpg'>",
+    "html": "Which Lashing did these cats use?<br><img src='img/sideways_cat.jpg'><img src='img/sideways_cat2.jpg'>",
     "points": [5]
   },
   {
@@ -110,7 +120,12 @@
   {
     "id": "audio8",
     "html": "This is a classic<br><audio controls><source src='img/audio8.mp3' type='audio/mpeg'>Your browser is cringe.</audio>",
-    "points": [4]
+    "points": [5]
+  },
+  {
+    "id": "audio9",
+    "html": "Hehe music<br><audio controls><source src='img/audio9.mp3' type='audio/mpeg'>Your browser is cringe.</audio>",
+    "points": [5]
   },
   {
     "id": "one",
