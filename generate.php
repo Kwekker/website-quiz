@@ -353,6 +353,8 @@ function printFullLeaderboard($leaderboard) {
         echo "<tr><td>$leaderboardPos</td>";
         echo "<td>$entry->name</td>";
         echo "<td>$entry->points</td></tr>";
+
+        $prevPoints = $entry->points;
     }
     echo "</table></div></div>";
 }
