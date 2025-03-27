@@ -44,10 +44,13 @@
         $questionHTML = $player;
       }
       else {
+        // Start an output buffer (all echoes go into this buffer instead.)
         ob_start();
         generateQuestions($player);
+        // Put the buffer contents into $questionHTML
         $questionHTML = ob_get_contents();
         ob_end_clean();
+        // This has to happen here because generateQuestions also fetches the leaderboard data.
       }
 
       if($leaderboard != false && count($leaderboard) >= 3):

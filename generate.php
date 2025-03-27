@@ -6,10 +6,20 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require "players.php";
-require_once "../notifs.php";
+
+// [PERSONAL] Maybe just remove these lines if you're not doing notifs.
+$notifs = false;
+if ($_SERVER['SERVER_NAME'] == "jochemleijenhorst.com") {
+    $notifs = true;
+    require_once "../notifs.php";
+}
 
 // TODO: Maybe make it so that times.json is locked during the entire procedure so no goofy things happen.
+
+// This is the first function that is run. It is run by index.php.
+// It returns either a player object or an error string.
 function getPlayer() {
+
     if(isset($_POST["reset"]) && $_POST["reset"] == "true") {
         unset($_COOKIE["name"]);
         setcookie("name", "", -1);
@@ -45,6 +55,7 @@ function getPlayer() {
         $times = json_decode(file_get_contents("times.json"), true);
         if($times != false && time() - $times["__GLOBAL__"] < 1) {
             $s = "<div>Too many new names at the moment. New names are rate limited to prevent bullshittery. Wait like 2 seconds and try again.";
+            // [PERSONAL] Edit this for your own site
             $s .= "<br>If this problem persists, please <a href='/aboutme#contact'>tell me about it</a> or <a href='/com'>leave a comment about it</a>, thanks :).</div>";
             checkLeaderboard();
             $s .= printNameRequest();
@@ -70,8 +81,15 @@ function getPlayer() {
             $times[$name] = 0;
             file_put_contents("times.json", json_encode($times), LOCK_EX);
         }
+        else {
+            return "Couldn't check creation time for some reason.";
+        }
+        // Give the user a cookie of the name and make it not expire for the next 5 years
         setcookie("name", $name, time() + 157680000);
-        sendNotif("$name is participating", "On the Quiz page!!", "quiz");
+
+        // [PERSONAL] Maybe just remove these lines if you're not doing notifs.
+        global $notifs;
+        if($notifs) sendNotif("$name is participating", "On the Quiz page!!", "quiz");
     }
     // Ask for a name.
     else {
@@ -88,13 +106,19 @@ function generateQuestions($player) {
     // Check if this user isn't brute-forcing (very, very cringe).
     if(!isset($times)) $times = json_decode(file_get_contents("times.json"), true);
 
+    // Rate limit answering
     if(time() < $times[$name]) {
-        $secs =  $times[$name] - time();
+        $secs = $times[$name] - time();
+        // [STYLE] You might want to style this differently. You can check how this looks by either spamming an answer
+        // (just reload the page a bunch of times after providing an answer to a question), or changing the limit to be like 5 seconds
+        // below this.
         echo "<div>You still have to wait a bit, slow down please.<br>You can reload the page in $secs seconds.. (A button will appear)<br>";
         echo "<a href='.' class='button sec8' style='animation-delay: " .$secs. ".2s'>Back to the questions</a></div>";
         return;
     }
+    // This is the minimal time between answers. It is currently set to 1 second.
     else if(time() - $times[$name] < 1 || isset($_GET["bruteforce"])) {
+        // [STYLE] This too
         echo "<div>Ok yeah no you are answering questions WAY too fast. You're getting an 8 second timeout. Please relax.<br>";
         echo "<span style='font-size:0px;'>Also you can bet your silly ass this is getting logged you nerd.</span><br>";
         echo "Still waiting.. <br><a href='.' class='button sec8'>Back to the questions</a></div>";
@@ -121,8 +145,10 @@ function generateQuestions($player) {
             echo "<div>Kindly fuck off :)</div>";
             return;
         }
-        if(strlen($_POST["answer"]) > 200 || strchr($_POST["answer"], '\n')) {
+        // Sanitize answers so we don't go checking strings longer than 200 characters, or with newlines in them.
+        if(strlen($_POST["answer"]) > 200 || strchr($_POST["answer"], "\n")) {
             $checkedAnswer = "Your answer is either too long or cringe.";
+            $isCorrect = false;
         }
         else {
 
@@ -152,10 +178,12 @@ function generateQuestions($player) {
     if($player->rank == 1) echo " Congrats :).";
 
     // Generate "show full leaderboard" button.
-    echo "<br><form action='#fullLeaderBoard' method='post' style='display:inline'><input type='hidden' name='showFullLeaderboard' value='true'><input type='submit' value='Show full leaderboard'></form>";
+    echo "<br><form action='#fullLeaderBoard' method='post' style='display:inline'>";
+    echo "<input type='hidden' name='showFullLeaderboard' value='true'>";
+    echo "<input type='submit' value='Show full leaderboard'>";
+    echo "</form></div><br>";
 
-    echo "</div><br>";
-
+    // Generate full leaderboard if said button was pressed.
     if(isset($_POST["showFullLeaderboard"]) && $_POST["showFullLeaderboard"] == "true") {
         global $leaderboard;
         printFullLeaderboard($leaderboard);
@@ -322,6 +350,8 @@ function checkName($name) {
         return "<div>Please only use letters or numbers in your name thanks.</div>";
     if(strlen($name) > 20)
         return "<div>Your name is too long.</div>";
+    // [PERSONAL] You probably don't care if someone names themselves "jochem".
+    // You can put your own name here though :)
     if(strtolower($name) == "jochem")
         return "<div>There can only be one.</div>";
     return false;
