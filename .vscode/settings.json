@@ -1,0 +1,11 @@
+{
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "**answers/*.json"
+            ],
+            "schema": true,
+            "url": "./answer_schema.json"
+        }
+    ]
+}

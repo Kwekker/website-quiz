@@ -1,0 +1,75 @@
+{
+  "//$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jochemleijenhorst.com/quiz/answers/schema.json",
+  "title": "Answers",
+  "description":
+    "Schema for answer files. I fucking hate json now that I know what yaml is, but sadly I can't use yaml. My website hoster doesn't have the yaml extension installed :(",
+  "type": "array",
+  "contains": {
+    "type": "object",
+    "properties": {
+      "correct": {
+        "const": true
+      }
+    },
+    "required": ["correct"]
+  },
+  "items": {
+    "type": "object",
+    "description": "Answer object",
+
+    "properties": {
+      "correct": {
+        "type": "boolean"
+      },
+      "points": {
+        "type": "integer"
+      },
+      "pairs": {
+        "type": "array",
+        "description": "An array of 'pair's.\nA pair is an object with a \"patterns\" array, and a \"response\" string. The response string will be displayed to the user when their answer matches the pattern.\nCan contain \"regex\": true to use regular expressions, and \"exact\": true to make the answer exact.",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "properties": {
+            "patterns": {
+              "description": "An array of strings. The php will check if the user's answer contains one of these strings, and respond with the \"response\" string.\nWhen \"regex\" is true, it will be used as a regular expression instead.\nWhen \"exact\" is true, it will match the user's answer to the strings exactly, instead of checking if the answer contains one of the strings.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "response": {
+              "type": "string"
+            },
+            "regex": "boolean",
+            "exact": "boolean"
+          },
+          "required": [
+            "patterns",
+            "response"
+          ]
+        }
+      }
+    },
+    "if": {
+      "properties": {
+        "correct": {
+          "const": true
+        }
+      }
+    },
+    "then": {
+      "required": [
+        "points",
+        "correct",
+        "pairs"
+      ]
+    },
+    "required": [
+      "correct",
+      "pairs"
+    ]
+  }
+}
