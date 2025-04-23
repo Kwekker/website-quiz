@@ -17,8 +17,8 @@ This readme will cover how it works, and how to turn it into your own thing.
 
 - [style.css](style.css) contains the styles for the questions. You can edit this file to change how questions look.
 - [questions.json](questions.json) contains the questions in the form of a json file. More on this [later](#questionsjson).
-- [formatChecker.php](formatChecker.php) is a program that checks if you messed up anything in the answer files or the questions.json file. This file is *very* useful.
-
+- [formatChecker.php](formatChecker.php) is a program that checks if you messed up anything in the answer files or the questions.json file. This file is *very* useful. This is not a 100% guaranteed check of an answer file, but a very good one. To fully test if an answer file is working, you need to check it against the [answer file JSON schema](answer_schema.json) *as well as* using this file.
+- [answer_schema.json](answer_schema.json) is a JSON schema file containing a schema for answer files.
 
 
 ## File formats
